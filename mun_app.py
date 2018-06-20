@@ -3,13 +3,14 @@ from PyQt5 import QtCore, QtGui, uic,QtWidgets
 from settings import Settings, Delegate
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+import math, time
 
 class MainWindow(QtWidgets.QWidget):
 
     def __init__(self, settings):
         super(MainWindow, self).__init__()
         self.settings = settings
-
+        self.timer_state = False
         uic.loadUi('mun_app_ui.ui', self)
 
         #Content Navigation
@@ -17,7 +18,9 @@ class MainWindow(QtWidgets.QWidget):
         self.delegates_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(1))
         self.add_delegate_button.clicked.connect(self.onAddDelButtonClicked)
         self.points_motions_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(3))
-        self.settings_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(4))
+        self.moderated_caucus_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(4))
+        self.add_mod_caucus_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(5))
+        self.settings_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(6))
        
        #Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
@@ -31,7 +34,7 @@ class MainWindow(QtWidgets.QWidget):
         self.save_button.clicked.connect(self.onSaveClicked)
 
         #Delegates Page
-        self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
+        self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
             del_view = uic.loadUi('delegate_view.ui')
             self.dels_layout.setAlignment(Qt.AlignTop)
@@ -63,6 +66,17 @@ class MainWindow(QtWidgets.QWidget):
         self.add_motion_button.clicked.connect(self.addMotionView)
         for i in range(3):
             self.addMotionView()
+
+        #Moderated Caucus
+        self.start_timer_mod.clicked.connect(lambda: self.startTimer(30))
+        self.pause_timer_mod.clicked.connect(self.pauseTimer)
+
+        #Add Moderated Caucus Page
+        self.cancel_button_mod.clicked.connect(lambda: self.content_pane.setCurrentIndex(4))
+
+   
+   #------------------------------------Functionality------------------------------------#
+    
     #Delegates Page Functions 
     def deleteDelegate(self,widget):
         delegate_name = widget.delegate_name_label.text()
@@ -73,11 +87,10 @@ class MainWindow(QtWidgets.QWidget):
             if delegate.title.lower() == delegate_name.lower():
                 if delegate.isPresent:
                     settings.total_present_delegates -= 1
-                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
+                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
                 self.settings.delegates.remove(delegate)
                 self.settings.toJSON()
                 self.removeItemComboBox(delegate.title)
-                self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
 
 
     def onAddDelButtonClicked(self):
@@ -92,8 +105,8 @@ class MainWindow(QtWidgets.QWidget):
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
                 if not(delegate.isPresent):
-                    settings.total_present_delegates+=1
-                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
+                    self.settings.total_present_delegates+=1
+                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
                 delegate.isPresent = True
                 self.settings.toJSON()
     
@@ -103,8 +116,8 @@ class MainWindow(QtWidgets.QWidget):
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
                 if delegate.isPresent:
-                    settings.total_present_delegates-=1
-                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
+                    self.settings.total_present_delegates-=1
+                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
                 delegate.isPresent = False
                 self.settings.toJSON()
     
@@ -127,9 +140,9 @@ class MainWindow(QtWidgets.QWidget):
         self.dels_layout.addWidget(del_view)
         self.content_pane.setCurrentIndex(1)
         self.addItemComboBox(delegate.title)
-        settings.total_present_delegates += 1
-        self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates))
-
+        self.settings.total_present_delegates += 1
+        self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
+        self.settings.toJSON()
     #Settings Page Button Functions
     def onCrisisClicked(self):
         self.settings.committeeType = 'Crisis'
@@ -185,8 +198,33 @@ class MainWindow(QtWidgets.QWidget):
             for i in range(view.delegates_combo_box.count()):
                 if(view.delegates_combo_box.itemText(i) == name):
                     view.delegates_combo_box.removeItem(i)
+    #Moderated Caucus Functions 
+    def startTimer(self,seconds = 60):
+        self.timer_state =True
+        self.countdown_timer_value = seconds
+        for tick in range(self.countdown_timer_value, -1, -1):
+            if(self.countdown_timer_value > 99):
+                self.countdown_timer.setDigitCount(3)
+            elif(self.countdown_timer_value >= 10):
+                self.countdown_timer.setDigitCount(2)
+            else:
+                self.countdown_timer.setDigitCount(1)
+            if(self.timer_state):
+                self.countdown_timer_value = self.countdown_timer_value - 1
+                self.countdown_timer.display(tick)
+                self.start_timer_mod.setEnabled(not tick)
+                start = time.time()
+                while time.time() - start < 1:
+                    app.processEvents()
+                    time.sleep(0.02)
 
-
+    def pauseTimer(self):
+        if(self.timer_state):
+            self.timer_state = False
+        else:
+            self.timer_state = True
+            self.startTimer(self.countdown_timer_value)
+        
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     if(os.stat('config.json').st_size == 0):

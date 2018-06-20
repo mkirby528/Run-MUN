@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1197</width>
-    <height>588</height>
+    <height>794</height>
    </rect>
   </property>
   <property name="font">
@@ -18,6 +18,10 @@
   <property name="windowTitle">
    <string>MUN App</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>gavel-icon-18659-Windows.ico</normaloff>gavel-icon-18659-Windows.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">QFrame#sidebar{
 	background-color: #13294B;
@@ -27,25 +31,26 @@ QLabel#app_title{
 	color:white;
 	font: 75 24pt &quot;Poor Richard&quot;;
 }
-QPushButton#home_button,#delegates_button,#points_motions_button,#settings_button {
+#home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button {
 		background-color: transparent;
 		border-color: transparent;
 		color:white;	
 		width: 100%;
 		margin: 0px;		
+		height: 50px
 }
 
-QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover{
+QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover,#moderated_caucus_button:hover{
 	background-color: #4B9CD3;
 
 }
 
-#settings_page, #points_motions_page{
+#settings_page, #points_motions_page, #moderated_caucus_page{
 	background-color: #4B9CD3;
 
 }
 
-#settings_title_label, #delegates_title_label, #points_and_motions_label{
+#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label{
 	color:white;
 	font: 24pt &quot;Arial Black&quot;;
 	padding-bottom: 10px;
@@ -69,7 +74,6 @@ QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hov
 
 QRadioButton {
     color:                  white;
-	
 	font: 14pt &quot;Arial Black&quot;;
 }
 
@@ -99,7 +103,7 @@ QRadioButton::indicator:unchecked {
 		background-color: #4B9CD3;
 }
 
-#add_delegate_button, #add_motion_button{
+#add_delegate_button, #add_motion_button, #add_mod_caucus_button{
 	background-color: #767676;
 	border-color: transparent;
 	color:white;
@@ -115,18 +119,59 @@ QRadioButton::indicator:unchecked {
 	background-color: lightgrey;
 }
 
-#delegates_info_label{
+#delegates_info_label, #mod_info_label,#mod_speakers_list_label{
 	background-color:#13294B;
 	color:white;
 	font: 87 12pt &quot;Arial Black&quot;;
 }
 
+#add_delegate_page, #add_mod_caucus_page{
+background-color: #767676;
+}
+#add_delegate_page_title, #add_mod_caucus_title{
+	color:white;
+	font: 75 36pt &quot;MS Shell Dlg 2&quot;;
+}
+
+#add_delegate_name_field, #add_mod_topic_field{
+	color:white;
+	background-color: #767676;
+	font: 75 24pt &quot;MS Shell Dlg 2&quot;;	border-style: ridge;
+    border-width: 0px,5px,0px,0px;
+    border-color: #777777;
+	padding: 5px
+}
+
+#cancel_button, #cancel_button_mod{
+	background-color: red;
+	color: black;
+	font: 87 24pt &quot;Arial Black&quot;;
+}
 
 
+#confirm_add_button, #confirm_add_button_mod{
+	background-color: lime;
+	color: black;
+	font: 87 24pt &quot;Arial Black&quot;;
+}
 
-</string>
+#duration_spin_box, #speaking_time_spin_box{
+	color:white;
+	background-color: #767676;
+	font: 75 14pt &quot;MS Shell Dlg 2&quot;;	
+	border-style: ridge;
+    border-width: 0px,5px,0px,0px;
+    border-color: #777777;
+	padding: 5px
+}
+
+
+#add_topic_label, #add_duration_label, #add_speaking_time_label{
+	color:white;
+	font: 87 14pt &quot;Arial Black&quot;;
+}</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="1,7">
+  <layout class="QGridLayout" name="gridLayout_4">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -145,7 +190,7 @@ QRadioButton::indicator:unchecked {
    <item row="0" column="1">
     <widget class="QStackedWidget" name="content_pane">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -184,6 +229,9 @@ QRadioButton::indicator:unchecked {
         <widget class="QLabel" name="delegates_info_label">
          <property name="text">
           <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -248,36 +296,7 @@ QRadioButton::indicator:unchecked {
      </widget>
      <widget class="QWidget" name="add_delegate_page">
       <property name="styleSheet">
-       <string notr="true">#add_delegate_page{
-background-color: #767676;
-}
-#add_delegate_page_title{
-	color:white;
-	font: 75 36pt &quot;MS Shell Dlg 2&quot;;
-}
-
-#add_delegate_name_field{
-	color:white;
-	background-color: #767676;
-	font: 75 24pt &quot;MS Shell Dlg 2&quot;;	border-style: ridge;
-    border-width: 0px,5px,0px,0px;
-    border-color: #777777;
-	padding: 5px
-}
-
-#cancel_button{
-	background-color: red;
-	color: black;
-	font: 87 24pt &quot;Arial Black&quot;;
-}
-
-
-#confirm_add_button{
-	background-color: lime;
-	color: black;
-	font: 87 24pt &quot;Arial Black&quot;;
-}
-</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
@@ -401,6 +420,9 @@ background-color: #767676;
      </widget>
      <widget class="QWidget" name="points_motions_page">
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item>
         <widget class="QLabel" name="points_and_motions_label">
          <property name="text">
@@ -431,8 +453,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>977</width>
-            <height>464</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -445,6 +467,297 @@ background-color: #767676;
            </item>
           </layout>
          </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="moderated_caucus_page">
+      <layout class="QGridLayout" name="gridLayout" columnstretch="2,1">
+       <property name="verticalSpacing">
+        <number>3</number>
+       </property>
+       <item row="4" column="0">
+        <widget class="QFrame" name="mod_timer_button_bar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="start_timer_mod">
+            <property name="text">
+             <string>Start </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pause_timer_mod">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>4</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Pause/Resume</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="reset_timer_mod">
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="mod_speakers_list_label">
+         <property name="text">
+          <string>Speakers </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="mod_info_label">
+         <property name="text">
+          <string>MOD INFO</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="moderated_caucus_title_label">
+         <property name="text">
+          <string>Moderated Caucus</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>Add Speaker</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>322</width>
+            <height>583</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QPushButton" name="add_mod_caucus_button">
+         <property name="text">
+          <string>Add Caucus</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLCDNumber" name="countdown_timer">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="digitCount">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="add_mod_caucus_page">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="add_mod_page_frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="add_mod_caucus_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Add Moderated Caucus</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <property name="leftMargin">
+              <number>80</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>80</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="add_mod_topic_field">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QSpinBox" name="speaking_time_spin_box">
+               <property name="maximum">
+                <number>999</number>
+               </property>
+               <property name="value">
+                <number>30</number>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="add_speaking_time_label">
+               <property name="text">
+                <string>Speaking Time(Seconds)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="add_topic_label">
+               <property name="text">
+                <string>Topic</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QDoubleSpinBox" name="duration_spin_box"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="add_duration_label">
+               <property name="text">
+                <string>Duration(Minutes)</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cancel_button_mod">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Cancel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="confirm_add_button_mod">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Add Caucus</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -721,7 +1034,9 @@ background-color: #767676;
      </property>
      <property name="font">
       <font>
-       <pointsize>4</pointsize>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -733,7 +1048,7 @@ background-color: #767676;
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0,0,0">
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0,0,0,0,0,0">
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
@@ -746,6 +1061,103 @@ background-color: #767676;
       <property name="bottomMargin">
        <number>9</number>
       </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="app_title">
+        <property name="font">
+         <font>
+          <family>Poor Richard</family>
+          <pointsize>24</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>MUN APP</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="delegates_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Delegates</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QPushButton" name="settings_button">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="points_motions_button">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Points/Motions</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="cira_logo">
         <property name="text">
@@ -787,7 +1199,9 @@ background-color: #767676;
         </property>
         <property name="font">
          <font>
-          <pointsize>18</pointsize>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -810,106 +1224,32 @@ background-color: #767676;
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QPushButton" name="settings_button">
+      <item row="7" column="0">
+       <widget class="QPushButton" name="moderated_caucus_button">
         <property name="font">
          <font>
-          <pointsize>18</pointsize>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Settings</string>
+         <string>Moderated Caucus</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="delegates_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="sizeIncrement">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>Delegates</string>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="points_motions_button">
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Points/Motions</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="app_title">
-        <property name="font">
-         <font>
-          <family>Poor Richard</family>
-          <pointsize>24</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>MUN APP</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
+      <item row="9" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>184</height>
+          <height>300</height>
          </size>
         </property>
        </spacer>
@@ -920,8 +1260,6 @@ background-color: #767676;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>home_button</tabstop>
-  <tabstop>delegates_button</tabstop>
   <tabstop>points_motions_button</tabstop>
   <tabstop>settings_button</tabstop>
   <tabstop>conference_title_field</tabstop>
