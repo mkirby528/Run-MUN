@@ -1,9 +1,10 @@
 import sys, os, jsonpickle,sip
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
-from settings import Settings, Delegate
+from settings import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import math, time
+from moderated_caucus import ModeratedCaucus
 
 class MainWindow(QtWidgets.QWidget):
 
@@ -68,11 +69,12 @@ class MainWindow(QtWidgets.QWidget):
             self.addMotionView()
 
         #Moderated Caucus
-        self.start_timer_mod.clicked.connect(lambda: self.startTimer(30))
+        self.start_timer_mod.clicked.connect(lambda: self.startTimer(self.countdown_timer_value))
         self.pause_timer_mod.clicked.connect(self.pauseTimer)
 
         #Add Moderated Caucus Page
         self.cancel_button_mod.clicked.connect(lambda: self.content_pane.setCurrentIndex(4))
+        self.confirm_add_button_mod.clicked.connect(lambda: self.addModeratedCaucus())
 
    
    #------------------------------------Functionality------------------------------------#
@@ -198,6 +200,12 @@ class MainWindow(QtWidgets.QWidget):
             for i in range(view.delegates_combo_box.count()):
                 if(view.delegates_combo_box.itemText(i) == name):
                     view.delegates_combo_box.removeItem(i)
+
+    #Add Mod Functions
+    def addModeratedCaucus(self):
+        caucus =  ModeratedCaucus(self.duration_spin_box.value(),self.speaking_time_spin_box.value(),self,self.add_mod_topic_field.text())
+        caucus.startCauscus()
+
     #Moderated Caucus Functions 
     def startTimer(self,seconds = 60):
         self.timer_state =True

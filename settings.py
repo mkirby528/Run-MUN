@@ -1,6 +1,7 @@
 import jsonpickle
 from enum import Enum
 import os
+from PyQt5 import QtCore, QtGui, uic,QtWidgets
 
 
 class Settings(object):
@@ -30,3 +31,6 @@ class Delegate(object):
     def __init__(self,title='Default Name'):
         self.title = title
         self.isPresent = True
+
+
+    
