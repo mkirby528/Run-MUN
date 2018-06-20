@@ -20,7 +20,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>gavel-icon-18659-Windows.ico</normaloff>gavel-icon-18659-Windows.ico</iconset>
+    <normaloff>../resources/gavel-icon-18659-Windows.ico</normaloff>../resources/gavel-icon-18659-Windows.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QFrame#sidebar{
@@ -210,7 +210,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -261,8 +261,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>977</width>
+            <height>641</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -453,8 +453,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>977</width>
+            <height>676</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1164,7 +1164,7 @@ background-color: #767676;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>cira_logo.png</pixmap>
+         <pixmap>../resources/cira_logo.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -1271,6 +1271,27 @@ background-color: #767676;
   <tabstop>gap_button</tabstop>
   <tabstop>cd_field</tabstop>
   <tabstop>save_button</tabstop>
+  <tabstop>delegates_button</tabstop>
+  <tabstop>home_button</tabstop>
+  <tabstop>moderated_caucus_button</tabstop>
+  <tabstop>add_delegate_button</tabstop>
+  <tabstop>delegates_scroll_area</tabstop>
+  <tabstop>add_delegate_name_field</tabstop>
+  <tabstop>cancel_button</tabstop>
+  <tabstop>confirm_add_button</tabstop>
+  <tabstop>add_motion_button</tabstop>
+  <tabstop>points_motions_scroll_area</tabstop>
+  <tabstop>start_timer_mod</tabstop>
+  <tabstop>pause_timer_mod</tabstop>
+  <tabstop>reset_timer_mod</tabstop>
+  <tabstop>pushButton_4</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>add_mod_caucus_button</tabstop>
+  <tabstop>add_mod_topic_field</tabstop>
+  <tabstop>duration_spin_box</tabstop>
+  <tabstop>speaking_time_spin_box</tabstop>
+  <tabstop>cancel_button_mod</tabstop>
+  <tabstop>confirm_add_button_mod</tabstop>
  </tabstops>
  <resources/>
  <connections/>

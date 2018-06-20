@@ -8,11 +8,10 @@ from moderated_caucus import ModeratedCaucus
 
 class MainWindow(QtWidgets.QWidget):
 
-    def __init__(self, settings):
+    def __init__(self, settings, app):
         super(MainWindow, self).__init__()
         self.settings = settings
-        self.timer_state = False
-        uic.loadUi('mun_app_ui.ui', self)
+        uic.loadUi('ui_files/mun_app_ui.ui', self)
 
         #Content Navigation
         self.home_button.clicked.connect(lambda: self.content_pane.setCurrentIndex(0))
@@ -37,7 +36,7 @@ class MainWindow(QtWidgets.QWidget):
         #Delegates Page
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) + ' | Simple Majority: ' + str(int(self.settings.total_present_delegates /2 + 1)) +  '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
-            del_view = uic.loadUi('delegate_view.ui')
+            del_view = uic.loadUi('ui_files/delegate_view.ui')
             self.dels_layout.setAlignment(Qt.AlignTop)
             
             delegate = self.settings.delegates[i]
@@ -68,9 +67,7 @@ class MainWindow(QtWidgets.QWidget):
         for i in range(3):
             self.addMotionView()
 
-        #Moderated Caucus
-        self.start_timer_mod.clicked.connect(lambda: self.startTimer(self.countdown_timer_value))
-        self.pause_timer_mod.clicked.connect(self.pauseTimer)
+      
 
         #Add Moderated Caucus Page
         self.cancel_button_mod.clicked.connect(lambda: self.content_pane.setCurrentIndex(4))
@@ -182,7 +179,7 @@ class MainWindow(QtWidgets.QWidget):
 
     #Points and Motions Button Functions 
     def addMotionView(self):
-        self.motion_views.append(uic.loadUi('motion_options.ui'))
+        self.motion_views.append(uic.loadUi('ui_files/motion_options.ui'))
         self.motion_views[-1].delegates_combo_box.setEditable(True)
         self.motion_views[-1].delegates_combo_box.lineEdit().setReadOnly(True)
         self.motion_views[-1].delegates_combo_box.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
@@ -203,35 +200,10 @@ class MainWindow(QtWidgets.QWidget):
 
     #Add Mod Functions
     def addModeratedCaucus(self):
-        caucus =  ModeratedCaucus(self.duration_spin_box.value(),self.speaking_time_spin_box.value(),self,self.add_mod_topic_field.text())
+        caucus =  ModeratedCaucus(self.duration_spin_box.value(),self.speaking_time_spin_box.value(),self,app,self.add_mod_topic_field.text())
         caucus.startCauscus()
 
-    #Moderated Caucus Functions 
-    def startTimer(self,seconds = 60):
-        self.timer_state =True
-        self.countdown_timer_value = seconds
-        for tick in range(self.countdown_timer_value, -1, -1):
-            if(self.countdown_timer_value > 99):
-                self.countdown_timer.setDigitCount(3)
-            elif(self.countdown_timer_value >= 10):
-                self.countdown_timer.setDigitCount(2)
-            else:
-                self.countdown_timer.setDigitCount(1)
-            if(self.timer_state):
-                self.countdown_timer_value = self.countdown_timer_value - 1
-                self.countdown_timer.display(tick)
-                self.start_timer_mod.setEnabled(not tick)
-                start = time.time()
-                while time.time() - start < 1:
-                    app.processEvents()
-                    time.sleep(0.02)
-
-    def pauseTimer(self):
-        if(self.timer_state):
-            self.timer_state = False
-        else:
-            self.timer_state = True
-            self.startTimer(self.countdown_timer_value)
+ 
         
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
@@ -241,7 +213,7 @@ if __name__ == '__main__':
         with open('config.json','r') as file:
             settings = jsonpickle.decode(file.read())
     
-    window = MainWindow(settings)
+    window = MainWindow(settings,app)
     window.content_pane.setCurrentIndex(0)
     window.show()
     sys.exit(app.exec_())
