@@ -136,7 +136,8 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>resources/delete_icon.png</normaloff>resources/delete_icon.png</iconset>
+       <normaloff>resources/delete_icon.png</normaloff>
+       <normalon>../resources/delete_icon.png</normalon>resources/delete_icon.png</iconset>
      </property>
      <property name="iconSize">
       <size>

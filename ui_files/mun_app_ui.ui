@@ -155,7 +155,7 @@ background-color: #767676;
 	font: 87 24pt &quot;Arial Black&quot;;
 }
 
-#duration_spin_box, #speaking_time_spin_box{
+#duration_spin_box, #speaking_time_spin_box, #motioned_by_combo_box{
 	color:white;
 	background-color: #767676;
 	font: 75 14pt &quot;MS Shell Dlg 2&quot;;	
@@ -166,10 +166,26 @@ background-color: #767676;
 }
 
 
-#add_topic_label, #add_duration_label, #add_speaking_time_label{
+#add_topic_label, #add_duration_label, #add_speaking_time_label, #motioned_by_label, #first_or_last_label{
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
-}</string>
+}
+
+#first_speech_button:checked, #last_speech_button:checked{
+	background-color: #13294B;
+	border:none;
+	color:white;
+	font: 87 16pt &quot;Arial Black&quot;;
+}
+
+#first_speech_button, #last_speech_button{
+	background-color: #767676;
+	border:none;
+	color:white;
+	font: 87 16pt &quot;Arial Black&quot;;
+}
+
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <property name="leftMargin">
@@ -210,7 +226,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -552,23 +568,6 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>322</width>
-            <height>583</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QPushButton" name="add_mod_caucus_button">
          <property name="text">
@@ -584,6 +583,53 @@ background-color: #767676;
          <property name="digitCount">
           <number>1</number>
          </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QScrollArea" name="mod_speaker_list">
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="speaker_list_contents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>322</width>
+            <height>583</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #767676;</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="speaker_list_layout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -646,6 +692,22 @@ background-color: #767676;
            </widget>
           </item>
           <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QFrame" name="frame_2">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -672,10 +734,23 @@ background-color: #767676;
              <property name="verticalSpacing">
               <number>0</number>
              </property>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="add_mod_topic_field">
+             <item row="4" column="0">
+              <widget class="QLabel" name="add_speaking_time_label">
                <property name="text">
-                <string/>
+                <string>Speaking Time(Seconds)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QDoubleSpinBox" name="duration_spin_box"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="add_topic_label">
+               <property name="text">
+                <string>Topic</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -689,26 +764,6 @@ background-color: #767676;
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="add_speaking_time_label">
-               <property name="text">
-                <string>Speaking Time(Seconds)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="add_topic_label">
-               <property name="text">
-                <string>Topic</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QDoubleSpinBox" name="duration_spin_box"/>
-             </item>
              <item row="1" column="0">
               <widget class="QLabel" name="add_duration_label">
                <property name="text">
@@ -716,8 +771,96 @@ background-color: #767676;
                </property>
               </widget>
              </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="add_mod_topic_field">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="motioned_by_label">
+               <property name="text">
+                <string>Motioned By</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QComboBox" name="motioned_by_combo_box">
+               <property name="insertPolicy">
+                <enum>QComboBox::InsertAlphabetically</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="first_or_last_label">
+               <property name="text">
+                <string>First or Last Speech?</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QFrame" name="frame_3">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QPushButton" name="first_speech_button">
+                  <property name="text">
+                   <string>First </string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="last_speech_button">
+                  <property name="text">
+                   <string>Last</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QPushButton" name="cancel_button_mod">
@@ -1285,13 +1428,12 @@ background-color: #767676;
   <tabstop>pause_timer_mod</tabstop>
   <tabstop>reset_timer_mod</tabstop>
   <tabstop>pushButton_4</tabstop>
-  <tabstop>scrollArea</tabstop>
+  <tabstop>mod_speaker_list</tabstop>
   <tabstop>add_mod_caucus_button</tabstop>
   <tabstop>add_mod_topic_field</tabstop>
   <tabstop>duration_spin_box</tabstop>
   <tabstop>speaking_time_spin_box</tabstop>
   <tabstop>cancel_button_mod</tabstop>
-  <tabstop>confirm_add_button_mod</tabstop>
  </tabstops>
  <resources/>
  <connections/>
