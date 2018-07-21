@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>843</width>
-    <height>94</height>
+    <width>1081</width>
+    <height>123</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -28,7 +28,8 @@
 #delegate_label, 
 #duration_label,
 #speaking_time_label,
-#topic_label{
+#topic_label,
+#first_or_last_label{
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
@@ -36,6 +37,7 @@
 #mod_check_box,
 #unmod_check_box,
 #other_check_box{
+
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
@@ -45,23 +47,24 @@
 	color:white;
 
 	font: 87 12pt &quot;Arial Black&quot;;
-}</string>
+}
+
+#first_check_box, #last_check_box{
+
+	color:white;
+	font: 87 12pt &quot;Arial Black&quot;;
+}
+
+#start_motion_button{
+	background-color: transparent
+}
+</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="4,1,1,1,4">
+  <layout class="QGridLayout" name="gridLayout" columnstretch="4,0,0,0,0,0,0">
    <item row="4" column="1">
     <widget class="QCheckBox" name="other_check_box">
      <property name="text">
       <string>Other</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QCheckBox" name="mod_check_box">
-     <property name="text">
-      <string>Mod</string>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
@@ -78,16 +81,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QCheckBox" name="unmod_check_box">
-     <property name="text">
-      <string>Unmod</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="2">
     <widget class="QLabel" name="duration_label">
      <property name="text">
@@ -98,29 +91,40 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-   </item>
-   <item row="1" column="3">
-    <widget class="QLabel" name="speaking_time_label">
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="unmod_check_box">
      <property name="text">
-      <string>Speaking time(Seconds)</string>
+      <string>Unmod</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QCheckBox" name="mod_check_box">
+     <property name="text">
+      <string>Mod</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QLabel" name="topic_label">
+     <property name="text">
+      <string>Topic</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="3">
-    <widget class="QSpinBox" name="spinBox"/>
-   </item>
-   <item row="3" column="4">
-    <widget class="QLineEdit" name="lineEdit"/>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLabel" name="topic_label">
+   <item row="1" column="3">
+    <widget class="QLabel" name="speaking_time_label">
      <property name="text">
-      <string>Topic</string>
+      <string>Speaking time(Seconds)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -152,6 +156,70 @@
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="minimum">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QLineEdit" name="lineEdit"/>
+   </item>
+   <item row="3" column="3">
+    <widget class="QSpinBox" name="spinBox">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>30</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QLabel" name="first_or_last_label">
+     <property name="text">
+      <string>First or Last?</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="5">
+    <widget class="QCheckBox" name="first_check_box">
+     <property name="text">
+      <string>First Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="5">
+    <widget class="QCheckBox" name="last_check_box">
+     <property name="text">
+      <string>Last Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="6">
+    <widget class="QPushButton" name="start_motion_button">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../resources/right-arrow.png</normaloff>../resources/right-arrow.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>

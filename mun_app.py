@@ -164,7 +164,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.dels_layout.addWidget(del_view)
         self.content_pane.setCurrentIndex(1)
-        self.addItemComboBox(delegate.title)
+        self.addItemComboBox(delegate)
         self.settings.total_present_delegates += 1
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
@@ -214,12 +214,21 @@ class MainWindow(QtWidgets.QWidget):
         ).setAlignment(QtCore.Qt.AlignCenter)
         self.points_motions_layout.addWidget(self.motion_views[-1])
         for delegate in self.settings.delegates:
-            self.motion_views[-1].delegates_combo_box.addItem(delegate.title)
+            self.motion_views[-1].delegates_combo_box.addItem(delegate.title,delegate)
             self.motion_views[-1].delegates_combo_box.model().sort(0)
+        self.motion_views[-1].start_motion_button.clicked.connect(lambda _, b=self.motion_views[-1]: self.startModFromMotions(b))
 
-    def addItemComboBox(self, name):
+    def startModFromMotions(self,b):
+        self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.lineEdit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+        for i in reversed(range(self.speaker_list_layout.count())):
+            self.speaker_list_layout.itemAt(i).widget().setParent(None)
+
+        self.setUpMod(self.caucus.duration,
+                      self.caucus.speaking_time, self.caucus.topic)
+
+    def addItemComboBox(self, delegate):
         for view in self.motion_views:
-            view.delegates_combo_box.addItem(name)
+            view.delegates_combo_box.addItem(delegate.title,delegate)
             view.delegates_combo_box.setItemData(1, 1, Qt.UserRole)
 
     def removeItemComboBox(self, name):
@@ -253,6 +262,13 @@ class MainWindow(QtWidgets.QWidget):
             return
         for i in range(int(num_speakers)):
             speaker_view = uic.loadUi('ui_files\speaker_view.ui')
+            speaker_view.add_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
+            speaker_view.cancel_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))
+            speaker_view.confirm_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onConfirmSpeakerClicked(b))
+
+
+            for delegate in self.settings.delegates:
+                speaker_view.add_speaker_combo_box.addItem(delegate.title,delegate)
             speaker_view.speaker_number_label.setText(str(i+1))
             if(self.caucus.is_first_speaker and i == 0):
                 speaker_view.speaker_name_label.setText(
@@ -274,6 +290,17 @@ class MainWindow(QtWidgets.QWidget):
         else:
             self.countdown_value.setDigitCount(1)
         self.countdown_timer.display(self.countdown_value)
+
+    def onAddSpeakerClicked(self,b):
+        b.setCurrentIndex(1)
+
+    
+    def onCancelSpeakerClicked(self,b):
+        b.setCurrentIndex(0)
+
+    def onConfirmSpeakerClicked(self,b):
+        b.speaker_name_label.setText(b.add_speaker_combo_box.currentText())
+        b.setCurrentIndex(0)
 
     def startTimer(self):
         self.timer_state = True

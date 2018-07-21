@@ -561,13 +561,6 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="text">
-          <string>Add Speaker</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QPushButton" name="add_mod_caucus_button">
          <property name="text">
@@ -587,6 +580,12 @@ background-color: #767676;
        </item>
        <item row="3" column="1">
         <widget class="QScrollArea" name="mod_speaker_list">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -601,6 +600,12 @@ background-color: #767676;
             <width>322</width>
             <height>583</height>
            </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>2</verstretch>
+           </sizepolicy>
           </property>
           <property name="styleSheet">
            <string notr="true">background-color: #767676;</string>
@@ -625,6 +630,9 @@ background-color: #767676;
             <layout class="QVBoxLayout" name="speaker_list_layout">
              <property name="spacing">
               <number>0</number>
+             </property>
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
              </property>
             </layout>
            </item>
@@ -742,7 +750,11 @@ background-color: #767676;
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QDoubleSpinBox" name="duration_spin_box"/>
+              <widget class="QDoubleSpinBox" name="duration_spin_box">
+               <property name="minimum">
+                <double>1.000000000000000</double>
+               </property>
+              </widget>
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="add_topic_label">
@@ -756,6 +768,9 @@ background-color: #767676;
              </item>
              <item row="4" column="1">
               <widget class="QSpinBox" name="speaking_time_spin_box">
+               <property name="minimum">
+                <number>1</number>
+               </property>
                <property name="maximum">
                 <number>999</number>
                </property>
@@ -1427,7 +1442,6 @@ background-color: #767676;
   <tabstop>start_timer_mod</tabstop>
   <tabstop>pause_timer_mod</tabstop>
   <tabstop>reset_timer_mod</tabstop>
-  <tabstop>pushButton_4</tabstop>
   <tabstop>mod_speaker_list</tabstop>
   <tabstop>add_mod_caucus_button</tabstop>
   <tabstop>add_mod_topic_field</tabstop>
