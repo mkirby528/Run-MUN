@@ -10,7 +10,7 @@ from PyQt5.QtGui import *
 import math
 import time
 from moderated_caucus import ModeratedCaucus
-import resources
+import ui_files.resources
 
 class MainWindow(QtWidgets.QWidget):
 
