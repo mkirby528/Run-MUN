@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="img">
+    <file>add.png</file>
+    <file>cancel_icon.png</file>
+    <file>check_icon.png</file>
+    <file>cira_logo.png</file>
+    <file>delete_icon.png</file>
+    <file>gavel-icon-18659-Windows.ico</file>
+    <file>right-arrow.png</file>
+  </qresource>
+</RCC>

@@ -1,6 +1,7 @@
 import sys
 import os
 import jsonpickle
+import simplejson
 import sip
 from PyQt5 import QtCore, QtGui, uic, QtWidgets
 from settings import *
@@ -9,14 +10,18 @@ from PyQt5.QtGui import *
 import math
 import time
 from moderated_caucus import ModeratedCaucus
-
+import resources
 
 class MainWindow(QtWidgets.QWidget):
 
     def __init__(self, settings, app):
         super(MainWindow, self).__init__()
         self.settings = settings
-        uic.loadUi('ui_files/mun_app_ui.ui', self)
+        
+
+
+        munapp_ui = resource_path('ui_files/mun_app_ui.ui')
+        uic.loadUi(munapp_ui, self)
 
         self.countdown_value = 30
         self.timer_state = False
@@ -51,7 +56,11 @@ class MainWindow(QtWidgets.QWidget):
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
-            del_view = uic.loadUi('ui_files/delegate_view.ui')
+         
+            delegate_ui = resource_path('ui_files/delegate_view.ui')
+
+
+            del_view = uic.loadUi(delegate_ui)
             self.dels_layout.setAlignment(Qt.AlignTop)
 
             delegate = self.settings.delegates[i]
@@ -151,7 +160,11 @@ class MainWindow(QtWidgets.QWidget):
             Delegate(self.add_delegate_name_field.text()))
         self.settings.toJSON()
         self.dels_layout.setAlignment(Qt.AlignTop)
-        del_view = uic.loadUi('ui_files\delegate_view.ui')
+
+       
+        delegate_ui = resource_path('ui_files/delegate_view.ui')
+
+        del_view = uic.loadUi(delegate_ui)
 
         delegate = self.settings.delegates[-1]
         del_view.delegate_name_label.setText(delegate.title)
@@ -207,7 +220,9 @@ class MainWindow(QtWidgets.QWidget):
 
     # Points and Motions Button Functions
     def addMotionView(self):
-        self.motion_views.append(uic.loadUi('ui_files/motion_options.ui'))
+       
+        motion_options = resource_path('ui_files/motion_options.ui')
+        self.motion_views.append(uic.loadUi(motion_options))
         self.motion_views[-1].delegates_combo_box.setEditable(True)
         self.motion_views[-1].delegates_combo_box.lineEdit().setReadOnly(True)
         self.motion_views[-1].delegates_combo_box.lineEdit(
@@ -261,7 +276,9 @@ class MainWindow(QtWidgets.QWidget):
         else:
             return
         for i in range(int(num_speakers)):
-            speaker_view = uic.loadUi('ui_files\speaker_view.ui')
+            
+            speaker_view = resource_path('ui_files/speaker_view.ui')
+            speaker_view = uic.loadUi(speaker_view)
             speaker_view.add_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
             speaker_view.cancel_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))
             speaker_view.confirm_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onConfirmSpeakerClicked(b))
@@ -343,13 +360,23 @@ class MainWindow(QtWidgets.QWidget):
         self.countdown_timer.display(self.countdown_value)
         self.start_timer_mod.setEnabled(True)
 
+def resource_path(relative_path):
+  if hasattr(sys, '_MEIPASS'):
+      return os.path.join(sys._MEIPASS, relative_path)
+  return os.path.join(os.path.abspath('.'), relative_path)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    if(os.stat('config.json').st_size == 0):
+
+    
+    json = resource_path('config.json')
+
+
+    if(os.stat(json).st_size == 0):
         settings = Settings()
     else:
-        with open('config.json', 'r') as file:
+        with open(json, 'r') as file:
+            jsonpickle.set_preferred_backend('simplejson')
             settings = jsonpickle.decode(file.read())
 
     window = MainWindow(settings, app)

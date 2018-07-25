@@ -1,8 +1,8 @@
-import jsonpickle
+import jsonpickle, simplejson
 from enum import Enum
 import os
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
-
+from mun_app import resource_path
 
 class Settings(object):
 
@@ -22,7 +22,11 @@ class Settings(object):
 
     
     def toJSON(self):
-        with open('config.json','w') as file:
+       
+        json = resource_path('config.json')
+
+        with open(json,'w') as file:
+            jsonpickle.set_preferred_backend('simplejson')
             file.write(jsonpickle.encode(self))
             file.close()
 

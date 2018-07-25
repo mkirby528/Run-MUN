@@ -226,7 +226,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -277,8 +277,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>977</width>
-            <height>641</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -469,8 +469,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>977</width>
-            <height>676</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -597,8 +597,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>583</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1322,7 +1322,7 @@ background-color: #767676;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../resources/cira_logo.png</pixmap>
+         <pixmap resource="res.qrc">:/img/cira_logo.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -1449,6 +1449,8 @@ background-color: #767676;
   <tabstop>speaking_time_spin_box</tabstop>
   <tabstop>cancel_button_mod</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -104,8 +104,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../resources/add.png</normaloff>../resources/add.png</iconset>
+       <iconset resource="res.qrc">
+        <normaloff>:/img/add.png</normaloff>:/img/add.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -141,8 +141,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../resources/cancel_icon.png</normaloff>../resources/cancel_icon.png</iconset>
+       <iconset resource="res.qrc">
+        <normaloff>:/img/cancel_icon.png</normaloff>:/img/cancel_icon.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -164,8 +164,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../resources/check_icon.png</normaloff>../resources/check_icon.png</iconset>
+       <iconset resource="res.qrc">
+        <normaloff>:/img/check_icon.png</normaloff>:/img/check_icon.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -178,6 +178,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

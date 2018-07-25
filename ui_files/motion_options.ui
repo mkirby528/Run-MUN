@@ -212,8 +212,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normaloff>../resources/right-arrow.png</normaloff>../resources/right-arrow.png</iconset>
+      <iconset resource="res.qrc">
+       <normaloff>:/img/right-arrow.png</normaloff>:/img/right-arrow.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -225,6 +225,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
