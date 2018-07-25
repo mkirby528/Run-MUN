@@ -19,8 +19,8 @@
    <string>MUN App</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../resources/gavel-icon-18659-Windows.ico</normaloff>../resources/gavel-icon-18659-Windows.ico</iconset>
+   <iconset resource="res.qrc">
+    <normaloff>:/img/resources/gavel-icon-18659-Windows.ico</normaloff>:/img/resources/gavel-icon-18659-Windows.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QFrame#sidebar{
@@ -226,7 +226,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -277,8 +277,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>977</width>
+            <height>641</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -469,8 +469,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>977</width>
+            <height>676</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -597,8 +597,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>322</width>
+            <height>583</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1322,7 +1322,7 @@ background-color: #767676;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="res.qrc">:/img/cira_logo.png</pixmap>
+         <pixmap resource="res.qrc">:/img/resources/cira_logo.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>

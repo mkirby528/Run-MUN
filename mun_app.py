@@ -10,7 +10,7 @@ from PyQt5.QtGui import *
 import math
 import time
 from moderated_caucus import ModeratedCaucus
-import ui_files.resources
+import resources
 
 class MainWindow(QtWidgets.QWidget):
 
@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QWidget):
         
 
 
-        munapp_ui = resource_path('ui_files/mun_app_ui.ui')
+        munapp_ui = resource_path('mun_app_ui.ui')
         uic.loadUi(munapp_ui, self)
 
         self.countdown_value = 30
@@ -57,7 +57,7 @@ class MainWindow(QtWidgets.QWidget):
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
          
-            delegate_ui = resource_path('ui_files/delegate_view.ui')
+            delegate_ui = resource_path('delegate_view.ui')
 
 
             del_view = uic.loadUi(delegate_ui)
@@ -162,7 +162,7 @@ class MainWindow(QtWidgets.QWidget):
         self.dels_layout.setAlignment(Qt.AlignTop)
 
        
-        delegate_ui = resource_path('ui_files/delegate_view.ui')
+        delegate_ui = resource_path('delegate_view.ui')
 
         del_view = uic.loadUi(delegate_ui)
 
@@ -221,7 +221,7 @@ class MainWindow(QtWidgets.QWidget):
     # Points and Motions Button Functions
     def addMotionView(self):
        
-        motion_options = resource_path('ui_files/motion_options.ui')
+        motion_options = resource_path('motion_options.ui')
         self.motion_views.append(uic.loadUi(motion_options))
         self.motion_views[-1].delegates_combo_box.setEditable(True)
         self.motion_views[-1].delegates_combo_box.lineEdit().setReadOnly(True)
@@ -277,7 +277,7 @@ class MainWindow(QtWidgets.QWidget):
             return
         for i in range(int(num_speakers)):
             
-            speaker_view = resource_path('ui_files/speaker_view.ui')
+            speaker_view = resource_path('speaker_view.ui')
             speaker_view = uic.loadUi(speaker_view)
             speaker_view.add_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
             speaker_view.cancel_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))

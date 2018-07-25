@@ -5,7 +5,7 @@ exe=Executable(
      base="Win32Gui",
      )
 
-includefiles = ['config.json', 'ui_files/motion_options.ui', 'ui_files/delegate_view.ui',  'ui_files/speaker_view.ui','ui_files/mun_app_ui.ui']
+includefiles = ['config.json', '/motion_options.ui', '/delegate_view.ui',  '/speaker_view.ui','/mun_app_ui.ui']
 excludes = []
 includes = []
 packages = []

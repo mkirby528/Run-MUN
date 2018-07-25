@@ -213,7 +213,7 @@
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
-       <normaloff>:/img/right-arrow.png</normaloff>:/img/right-arrow.png</iconset>
+       <normaloff>:/img/resources/right-arrow.png</normaloff>:/img/resources/right-arrow.png</iconset>
      </property>
      <property name="iconSize">
       <size>

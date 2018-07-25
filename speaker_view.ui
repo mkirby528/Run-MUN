@@ -49,7 +49,7 @@
 </string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="display_mode_view">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -105,7 +105,7 @@
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
-        <normaloff>:/img/add.png</normaloff>:/img/add.png</iconset>
+        <normaloff>:/img/resources/add.png</normaloff>:/img/resources/add.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -118,7 +118,7 @@
    </layout>
   </widget>
   <widget class="QWidget" name="add_mode_view">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="8,1,1">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="8,0,1">
     <item>
      <widget class="QComboBox" name="add_speaker_combo_box">
       <property name="insertPolicy">
@@ -142,7 +142,7 @@
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
-        <normaloff>:/img/cancel_icon.png</normaloff>:/img/cancel_icon.png</iconset>
+        <normaloff>:/img/resources/cancel_icon.png</normaloff>:/img/resources/cancel_icon.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -165,7 +165,7 @@
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
-        <normaloff>:/img/check_icon.png</normaloff>:/img/check_icon.png</iconset>
+        <normaloff>:/img/resources/check_icon.png</normaloff>:/img/resources/check_icon.png</iconset>
       </property>
       <property name="iconSize">
        <size>
