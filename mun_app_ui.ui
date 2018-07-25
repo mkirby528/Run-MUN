@@ -226,7 +226,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -277,8 +277,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>977</width>
-            <height>641</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -608,7 +608,7 @@ background-color: #767676;
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #767676;</string>
+           <string notr="true">background-color: #13294B;</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0">
            <property name="spacing">
