@@ -207,7 +207,7 @@ background-color: #767676;
 
 </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4" columnminimumwidth="200,0">
+  <layout class="QGridLayout" name="gridLayout_4" columnstretch="2,8" columnminimumwidth="200,0">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -1214,7 +1214,7 @@ background-color: #767676;
    <item row="0" column="0">
     <widget class="QFrame" name="sidebar">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
