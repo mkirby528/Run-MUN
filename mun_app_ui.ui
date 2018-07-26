@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1197</width>
-    <height>794</height>
+    <width>1500</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="font">
@@ -29,7 +29,7 @@
 
 QLabel#app_title{
 	color:white;
-	font: 75 24pt &quot;Poor Richard&quot;;
+	font: 87 24pt &quot;Arial Black&quot;;
 }
 #home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button {
 		background-color: transparent;
@@ -96,7 +96,8 @@ QRadioButton::indicator:unchecked {
 #save_button{
 	background-color: #13294b;
 	color: white;
-	font: 30pt &quot;Wide Latin&quot;;
+	font: 87 30pt &quot;Arial Black&quot;;
+
 }
 
 #delegates_page, #dels_scroll_area{
@@ -107,7 +108,7 @@ QRadioButton::indicator:unchecked {
 	background-color: #767676;
 	border-color: transparent;
 	color:white;
-	font: 20pt &quot;Poor Richard&quot;;
+	font: 87 20pt &quot;Arial Black&quot;;
 }
 
 #dels_layout, #dels_scroll_area{
@@ -116,7 +117,7 @@ QRadioButton::indicator:unchecked {
 }
 
 #points_motion_scroll_contents {
-	background-color: lightgrey;
+	background-color: #4B9CD3;
 }
 
 #delegates_info_label, #mod_info_label,#mod_speakers_list_label{
@@ -130,13 +131,14 @@ background-color: #767676;
 }
 #add_delegate_page_title, #add_mod_caucus_title{
 	color:white;
-	font: 75 36pt &quot;MS Shell Dlg 2&quot;;
+	font: 87 36pt &quot;Arial Black&quot;;
 }
 
 #add_delegate_name_field, #add_mod_topic_field{
 	color:white;
 	background-color: #767676;
-	font: 75 24pt &quot;MS Shell Dlg 2&quot;;	border-style: ridge;
+	font: 87 24pt &quot;Arial Black&quot;;
+	border-style: ridge;
     border-width: 0px,5px,0px,0px;
     border-color: #777777;
 	padding: 5px
@@ -158,7 +160,7 @@ background-color: #767676;
 #duration_spin_box, #speaking_time_spin_box, #motioned_by_combo_box{
 	color:white;
 	background-color: #767676;
-	font: 75 14pt &quot;MS Shell Dlg 2&quot;;	
+	font: 87 14pt &quot;Arial Black&quot;;	
 	border-style: ridge;
     border-width: 0px,5px,0px,0px;
     border-color: #777777;
@@ -183,6 +185,24 @@ background-color: #767676;
 	border:none;
 	color:white;
 	font: 87 16pt &quot;Arial Black&quot;;
+}
+
+#start_timer_mod, #pause_timer_mod, #reset_timer_mod{
+	background-color: #767676;
+	color: white;
+		
+	font: 87 14pt &quot;Arial Black&quot;;
+}
+
+#countdown_timer{
+	color: #13294B;
+}
+
+#start_timer_mod:disabled, #pause_timer_mod:disabled, #reset_timer_mod:disabled{
+	background-color: #909090;
+	color: white;
+		
+	font: 87 14pt &quot;Arial Black&quot;;
 }
 
 </string>
@@ -226,7 +246,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -277,8 +297,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>977</width>
+            <height>643</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -469,8 +489,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>977</width>
-            <height>676</height>
+            <width>1027</width>
+            <height>678</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -576,6 +596,12 @@ background-color: #767676;
          <property name="digitCount">
           <number>1</number>
          </property>
+         <property name="mode">
+          <enum>QLCDNumber::Dec</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
        </item>
        <item row="3" column="1">
@@ -597,8 +623,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>583</height>
+            <width>338</width>
+            <height>573</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1088,9 +1114,9 @@ background-color: #767676;
          </property>
          <property name="font">
           <font>
-           <family>Wide Latin</family>
+           <family>Arial Black</family>
            <pointsize>30</pointsize>
-           <weight>50</weight>
+           <weight>10</weight>
            <italic>false</italic>
            <bold>false</bold>
           </font>
@@ -1116,10 +1142,13 @@ background-color: #767676;
        <item row="9" column="1">
         <widget class="QFrame" name="frame">
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <property name="leftMargin">
@@ -1223,9 +1252,9 @@ background-color: #767676;
        <widget class="QLabel" name="app_title">
         <property name="font">
          <font>
-          <family>Poor Richard</family>
+          <family>Arial Black</family>
           <pointsize>24</pointsize>
-          <weight>9</weight>
+          <weight>10</weight>
           <italic>false</italic>
           <bold>false</bold>
          </font>

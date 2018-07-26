@@ -17,7 +17,7 @@ class MainWindow(QtWidgets.QWidget):
     def __init__(self, settings, app):
         super(MainWindow, self).__init__()
         self.settings = settings
-        
+        self.caucus  =ModeratedCaucus(0,30,'default topic',self.settings.delegates[0],True)
 
 
         munapp_ui = resource_path('mun_app_ui.ui')
@@ -234,7 +234,7 @@ class MainWindow(QtWidgets.QWidget):
         self.motion_views[-1].start_motion_button.clicked.connect(lambda _, b=self.motion_views[-1]: self.startModFromMotions(b))
 
     def startModFromMotions(self,b):
-        self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.lineEdit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+        self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.topic_line_edit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
 
@@ -336,6 +336,7 @@ class MainWindow(QtWidgets.QWidget):
                 while time.time() - start < 1:
                     app.processEvents()
                     time.sleep(0.02)
+        self.resetTimer()
 
     def pauseTimer(self):
         if(self.timer_state):

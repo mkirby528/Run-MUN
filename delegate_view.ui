@@ -27,8 +27,7 @@
 
 #delegate_name_label{
 	color:white;
-	
-	font: 24pt &quot;Poor Richard&quot;;
+	font: 24pt &quot;Arial Black&quot;;
 	text-decoration: underline;
 }
 

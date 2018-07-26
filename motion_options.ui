@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
+    <width>1194</width>
     <height>123</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#root{
-	background-color: #99badd;
+	background-color: #13294B;
 
 }
 
@@ -42,13 +42,12 @@
 	font: 87 14pt &quot;Arial Black&quot;;
 }
 
-#delegates_combo_box{
+#delegates_combo_box, #delegates_combo_box:item{
+color:white;
 	background-color: #767676;
-	color:white;
+	font: 87 14pt &quot;Arial Black&quot;;	
 
-	font: 87 12pt &quot;Arial Black&quot;;
 }
-
 #first_check_box, #last_check_box{
 
 	color:white;
@@ -58,36 +57,31 @@
 #start_motion_button{
 	background-color: transparent
 }
+
+#topic_line_edit, #doubleSpinBox, #spinBox{
+	color:white;
+	background-color: #767676;
+	border-color: transparent;
+	font: 87 16pt &quot;Arial Black&quot;;
+}
+
 </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="4,0,0,0,0,0,0">
-   <item row="4" column="1">
-    <widget class="QCheckBox" name="other_check_box">
+  <layout class="QGridLayout" name="gridLayout" columnstretch="4,0,4,0,0,0,0,0" columnminimumwidth="0,0,200,0,0,0,0,0">
+   <item row="1" column="4">
+    <widget class="QLabel" name="speaking_time_label">
      <property name="text">
-      <string>Other</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="delegate_label">
-     <property name="text">
-      <string>Delegate</string>
+      <string>Speaking time(Seconds)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QLabel" name="duration_label">
-     <property name="text">
-      <string>Duration(Minutes)</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+   <item row="3" column="3">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="minimum">
+      <double>1.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -101,30 +95,10 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QCheckBox" name="mod_check_box">
-     <property name="text">
-      <string>Mod</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLabel" name="topic_label">
-     <property name="text">
-      <string>Topic</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="3">
-    <widget class="QLabel" name="speaking_time_label">
+    <widget class="QLabel" name="duration_label">
      <property name="text">
-      <string>Speaking time(Seconds)</string>
+      <string>Duration(Minutes)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -145,6 +119,184 @@
        <height>30</height>
       </size>
      </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>118</red>
+           <green>118</green>
+           <blue>118</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #767676; color:white</string>
+     </property>
      <property name="currentText">
       <string/>
      </property>
@@ -155,22 +307,45 @@
       <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
      </property>
      <property name="frame">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="delegate_label">
+     <property name="text">
+      <string>Delegate</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="other_check_box">
+     <property name="text">
+      <string>Other</string>
+     </property>
+     <property name="autoExclusive">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
-     <property name="minimum">
-      <double>1.000000000000000</double>
+   <item row="1" column="1">
+    <widget class="QCheckBox" name="mod_check_box">
+     <property name="text">
+      <string>Mod</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="3" column="4">
-    <widget class="QLineEdit" name="lineEdit"/>
-   </item>
-   <item row="3" column="3">
     <widget class="QSpinBox" name="spinBox">
+     <property name="frame">
+      <bool>false</bool>
+     </property>
      <property name="minimum">
       <number>1</number>
      </property>
@@ -179,34 +354,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
-    <widget class="QLabel" name="first_or_last_label">
-     <property name="text">
-      <string>First or Last?</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="5">
-    <widget class="QCheckBox" name="first_check_box">
-     <property name="text">
-      <string>First Speech</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="QCheckBox" name="last_check_box">
-     <property name="text">
-      <string>Last Speech</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="6">
+   <item row="3" column="7">
     <widget class="QPushButton" name="start_motion_button">
      <property name="text">
       <string/>
@@ -220,6 +368,53 @@
        <width>50</width>
        <height>32</height>
       </size>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="6">
+    <widget class="QCheckBox" name="first_check_box">
+     <property name="text">
+      <string>First Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="6">
+    <widget class="QCheckBox" name="last_check_box">
+     <property name="text">
+      <string>Last Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="6">
+    <widget class="QLabel" name="first_or_last_label">
+     <property name="text">
+      <string>First or Last?</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="topic_label">
+     <property name="text">
+      <string>Topic</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLineEdit" name="topic_line_edit">
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
