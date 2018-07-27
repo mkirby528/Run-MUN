@@ -17,7 +17,7 @@ class MainWindow(QtWidgets.QWidget):
     def __init__(self, settings, app):
         super(MainWindow, self).__init__()
         self.settings = settings
-        self.caucus  =ModeratedCaucus(0,30,'default topic',self.settings.delegates[0],True)
+        self.caucus = ModeratedCaucus(0,30,'default topic')
 
 
         munapp_ui = resource_path('mun_app_ui.ui')
@@ -111,7 +111,7 @@ class MainWindow(QtWidgets.QWidget):
     def deleteDelegate(self, widget):
         delegate_name = widget.delegate_name_label.text()
         self.dels_layout.removeWidget(widget)
-        sip.delete(widget)
+        widget.hide()
         widget = None
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
