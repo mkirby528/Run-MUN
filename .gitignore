@@ -61,6 +61,8 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+
+
 # Sphinx documentation
 docs/_build/
 
@@ -176,5 +178,7 @@ CMakeLists.txt.user*
 !.vscode/extensions.json
 .history
 
+#config files
+config.json
 
 # End of https://www.gitignore.io/api/qt,python,qtcreator,visualstudiocode
