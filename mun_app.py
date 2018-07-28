@@ -18,13 +18,18 @@ class MainWindow(QtWidgets.QWidget):
         super(MainWindow, self).__init__()
         self.settings = settings
         self.caucus = ModeratedCaucus(0,30,'default topic')
-
-
+        self.defualt_unmod_time_value = 30
         munapp_ui = resource_path('mun_app_ui.ui')
         uic.loadUi(munapp_ui, self)
 
-        self.countdown_value = 30
+        self.countdown_value_mod = 30
+        self.countdown_value_unmod = 30
         self.timer_state = False
+        self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
+        self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
+
+        self.countdown_timer.display(getTime(self.countdown_value_mod))
+        self.unmod_timer.display(getTime(self.countdown_value_unmod))
 
         # Content Navigation
         self.home_button.clicked.connect(
@@ -38,8 +43,10 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.content_pane.setCurrentIndex(4))
         self.add_mod_caucus_button.clicked.connect(
             lambda: self.addModPressed())
-        self.settings_button.clicked.connect(
+        self.unmod_button.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(6))
+        self.settings_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(7))
 
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
@@ -102,9 +109,18 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.addModeratedCaucus())
 
         # Mod
-        self.start_timer_mod.clicked.connect(lambda: self.startTimer())
-        self.pause_timer_mod.clicked.connect(lambda: self.pauseTimer())
-        self.reset_timer_mod.clicked.connect(lambda: self.resetTimer())
+        self.start_timer_mod.clicked.connect(lambda: self.startTimer('mod'))
+        self.pause_timer_mod.clicked.connect(lambda: self.pauseTimer('mod'))
+        self.reset_timer_mod.clicked.connect(lambda: self.resetTimer('mod'))
+
+        #Unmod
+        self.unmod_timer_start_button.clicked.connect(lambda: self.startTimer('unmod'))
+        self.unmod_timer_pause_button.clicked.connect(lambda: self.pauseTimer('unmod'))
+        self.unmod_timer_reset_button.clicked.connect(lambda: self.resetTimer('unmod'))
+        self.add_unmod_button.clicked.connect(lambda: self.add_unmod_widget.setCurrentIndex(1))
+        self.cancel_set_unmod.clicked.connect(lambda: self.add_unmod_widget.setCurrentIndex(0))
+        self.confirm_set_unmod.clicked.connect(lambda:  self.setUnmod(self.set_unmod_min_spinbox.value() * 60 + self.set_unmod_sec_spinbox.value()))
+
    #------------------------------------Functionality------------------------------------#
 
     # Delegates Page Functions
@@ -298,15 +314,15 @@ class MainWindow(QtWidgets.QWidget):
 
         self.mod_info_label.setText(
             str(duration) + ' minute ' + str(speaking_time) + ' second caucus on ' + topic)
-        self.countdown_value = speaking_time
+        self.countdown_value_mod = speaking_time
         self.content_pane.setCurrentIndex(4)
-        if(self.countdown_value > 99):
-            self.countdown_timer.setDigitCount(3)
-        elif(self.countdown_value >= 10):
-            self.countdown_timer.setDigitCount(2)
+        if(self.countdown_value_mod > 99):
+            self.countdown_timer.setDigitCount(4)
+        elif(self.countdown_value_mod >= 10):
+            self.countdown_timer.setDigitCount(4)
         else:
-            self.countdown_value.setDigitCount(1)
-        self.countdown_timer.display(self.countdown_value)
+            self.countdown_value_mod.setDigitCount(4)
+        self.countdown_timer.display(getTime(self.countdown_value_mod))
 
     def onAddSpeakerClicked(self,b):
         b.setCurrentIndex(1)
@@ -319,47 +335,72 @@ class MainWindow(QtWidgets.QWidget):
         b.speaker_name_label.setText(b.add_speaker_combo_box.currentText())
         b.setCurrentIndex(0)
 
-    def startTimer(self):
+    def startTimer(self,mode):
         self.timer_state = True
-        for tick in range(self.countdown_value, -1, -1):
-            if(self.countdown_value - 1 > 99):
-                self.countdown_timer.setDigitCount(3)
-            elif(self.countdown_value - 1 >= 10):
-                self.countdown_timer.setDigitCount(2)
-            else:
-                self.countdown_timer.setDigitCount(1)
-            if(self.timer_state):
-                self.countdown_value = self.countdown_value - 1
-                self.countdown_timer.display(self.countdown_value)
-                self.start_timer_mod.setEnabled(not tick)
-                start = time.time()
-                while time.time() - start < 1:
-                    app.processEvents()
-                    time.sleep(0.02)
-        self.resetTimer()
+        if(mode == 'mod'):
+            for tick in range(self.countdown_value_mod, -1, -1):
+                self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod -1)))
+                if(self.timer_state):
+                    self.countdown_value_mod = self.countdown_value_mod - 1
+                    self.countdown_timer.display(getTime(self.countdown_value_mod))
+                    self.start_timer_mod.setEnabled(not tick)
+                    start = time.time()
+                    while time.time() - start < 1:
+                        app.processEvents()
+                        time.sleep(0.02)
+        else:
+            for tick in range(self.countdown_value_unmod, -1, -1):
+                self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_unmod)))
+                if(self.timer_state):
+                    self.countdown_value_unmod = self.countdown_value_unmod - 1
+                    self.unmod_timer.display(getTime(self.countdown_value_unmod))
+                    self.unmod_timer_start_button.setEnabled(not tick)
+                    start = time.time()
+                    while time.time() - start < 1:
+                        app.processEvents()
+                        time.sleep(0.02)
+        
 
-    def pauseTimer(self):
+    def pauseTimer(self, mode):
         if(self.timer_state):
             self.timer_state = False
         else:
             self.timer_state = True
-            self.startTimer()
+            self.startTimer(mode)
 
-    def resetTimer(self):
+    def resetTimer(self, mode):
         if(self.timer_state):
-            self.pauseTimer()
+            self.pauseTimer(mode)
 
         self.timer_state = False
-        self.countdown_value = self.caucus.speaking_time
-        if(self.countdown_value > 99):
-            self.countdown_timer.setDigitCount(3)
-        elif(self.countdown_value >= 10):
-            self.countdown_timer.setDigitCount(2)
+        if(mode == 'mod'):
+            self.countdown_value_mod = self.caucus.speaking_time
+            self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
+            self.countdown_timer.display(getTime(self.countdown_value_mod))
+            self.start_timer_mod.setEnabled(True)
         else:
-            self.countdown_timer.setDigitCount(1)
+            self.countdown_value_unmod = self.defualt_unmod_time_value
+            self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_unmod)))
+            self.unmod_timer.display(getTime(self.countdown_value_unmod))
+            self.unmod_timer_start_button.setEnabled(True)
 
-        self.countdown_timer.display(self.countdown_value)
-        self.start_timer_mod.setEnabled(True)
+    ##Unmod 
+    def setUnmod(self, seconds):
+        self.defualt_unmod_time_value = seconds
+        self.countdown_value_unmod = self.defualt_unmod_time_value
+        self.resetTimer('unmod')
+        self.add_unmod_widget.setCurrentIndex(0)
+
+def getTime(time):
+    minutes = math.floor(time / 60)
+    seconds = time % 60
+    if(seconds < 10): 
+        seconds = '0'+str(seconds)
+    if(minutes != 0 ):
+        return str(minutes) + ':' +str(seconds)
+    else:
+        return ':' + str(seconds)
+
 
 def resource_path(relative_path):
   if hasattr(sys, '_MEIPASS'):

@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
-    <height>900</height>
+    <width>1387</width>
+    <height>875</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="font">
    <font>
@@ -31,7 +37,7 @@ QLabel#app_title{
 	color:white;
 	font: 87 24pt &quot;Arial Black&quot;;
 }
-#home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button {
+#home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button,#unmod_button {
 		background-color: transparent;
 		border-color: transparent;
 		color:white;	
@@ -42,7 +48,7 @@ QLabel#app_title{
 
 }
 
-QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover,#moderated_caucus_button:hover{
+QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover,#moderated_caucus_button:hover, #unmod_button:hover{
 	background-color: #4B9CD3;
 
 }
@@ -52,7 +58,7 @@ QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hov
 
 }
 
-#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label{
+#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label, #unmod_title_label{
 	color:white;
 	font: 24pt &quot;Arial Black&quot;;
 	padding-bottom: 10px;
@@ -106,7 +112,7 @@ QRadioButton::indicator:unchecked {
 		background-color: #4B9CD3;
 }
 
-#add_delegate_button, #add_motion_button, #add_mod_caucus_button{
+#add_delegate_button, #add_motion_button, #add_mod_caucus_button, #add_unmod_button{
 	background-color: #767676;
 	border-color: transparent;
 	color:white;
@@ -159,7 +165,7 @@ background-color: #767676;
 	font: 87 24pt &quot;Arial Black&quot;;
 }
 
-#duration_spin_box, #speaking_time_spin_box, #motioned_by_combo_box{
+#duration_spin_box, #speaking_time_spin_box, #motioned_by_combo_box,#set_unmod_min_spinbox,#set_unmod_sec_spinbox{
 	color:white;
 	background-color: #767676;
 	font: 87 14pt &quot;Arial Black&quot;;	
@@ -170,7 +176,7 @@ background-color: #767676;
 }
 
 
-#add_topic_label, #add_duration_label, #add_speaking_time_label, #motioned_by_label, #first_or_last_label{
+#add_topic_label, #add_duration_label, #add_speaking_time_label, #motioned_by_label, #first_or_last_label, #set_unmod_minutes_label,#set_unmod_seconds_label{
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
@@ -189,27 +195,42 @@ background-color: #767676;
 	font: 87 16pt &quot;Arial Black&quot;;
 }
 
-#start_timer_mod, #pause_timer_mod, #reset_timer_mod{
+#start_timer_mod, #pause_timer_mod, #reset_timer_mod, #unmod_timer_start_button,#unmod_timer_pause_button,#unmod_timer_reset_button{
 	background-color: #767676;
 	color: white;
 		
 	font: 87 14pt &quot;Arial Black&quot;;
 }
 
-#countdown_timer{
+#countdown_timer, #unmod_timer{
 	color: #13294B;
 }
 
-#start_timer_mod:disabled, #pause_timer_mod:disabled, #reset_timer_mod:disabled{
+#start_timer_mod:disabled, #pause_timer_mod:disabled, #reset_timer_mod:disabled,#unmod_timer_reset_button:disabled, #unmod_timer_start_button:disabled,#unmod_timer_pause_button:disabled{
 	background-color: #909090;
 	color: white;
 		
 	font: 87 14pt &quot;Arial Black&quot;;
 }
 
+#unmod_page{
+	background-color: #4B9CD3;
+}
+#confirm_set_unmod, #cancel_set_unmod{
+	background-color:transparent
+
+}
+
+#set_time_page{
+	background-color: #13294b
+}
+
 </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,7" columnminimumwidth="200,0">
+  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,16">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -222,10 +243,285 @@ background-color: #767676;
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <item row="0" column="1">
+   <item>
+    <widget class="QFrame" name="sidebar">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_9">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="cira_logo">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="res.qrc">:/img/resources/cira_logo.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="app_title">
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>24</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>MUN APP</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="home_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>12</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Home</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="delegates_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>12</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Delegates</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="points_motions_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>12</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Points/Motions</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="moderated_caucus_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>12</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Moderated Caucus</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="unmod_button">
+        <property name="text">
+         <string>Unmoderated Caucus/ 
+ Timer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="settings_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>12</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>300</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QStackedWidget" name="content_pane">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -248,7 +544,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -299,8 +595,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>57</width>
-            <height>16</height>
+            <width>1192</width>
+            <height>715</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -491,8 +787,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>57</width>
-            <height>24</height>
+            <width>65</width>
+            <height>20</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -625,8 +921,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>16</width>
-            <height>16</height>
+            <width>394</width>
+            <height>645</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -948,6 +1244,222 @@ background-color: #767676;
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="unmod_page">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,9,0">
+       <item>
+        <widget class="QLabel" name="unmod_title_label">
+         <property name="text">
+          <string>Unmoderated Caucus / Timer </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="add_unmod_widget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="page">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="add_unmod_button">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Add Unmod / Set Time </string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+          <zorder>add_unmod_button</zorder>
+          <zorder>add_unmod_button</zorder>
+         </widget>
+         <widget class="QWidget" name="set_time_page">
+          <layout class="QGridLayout" name="gridLayout_2" columnstretch="9,9,0,0" columnminimumwidth="0,0,0,0">
+           <property name="leftMargin">
+            <number>9</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="set_unmod_minutes_label">
+             <property name="text">
+              <string>Minutes</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="set_unmod_seconds_label">
+             <property name="text">
+              <string>Seconds</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" rowspan="2">
+            <widget class="QPushButton" name="cancel_set_unmod">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="res.qrc">
+               <normaloff>:/img/resources/cancel_icon.png</normaloff>:/img/resources/cancel_icon.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3" rowspan="2">
+            <widget class="QPushButton" name="confirm_set_unmod">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="res.qrc">
+               <normaloff>:/img/resources/check_icon.png</normaloff>:/img/resources/check_icon.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="set_unmod_min_spinbox"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="set_unmod_sec_spinbox"/>
+           </item>
+          </layout>
+          <zorder>unmod_timer</zorder>
+          <zorder>unmod_timer</zorder>
+          <zorder>cancel_set_unmod</zorder>
+          <zorder>unmod_timer</zorder>
+          <zorder>confirm_set_unmod</zorder>
+          <zorder>set_unmod_minutes_label</zorder>
+          <zorder>set_unmod_min_spinbox</zorder>
+          <zorder>set_unmod_sec_spinbox</zorder>
+          <zorder>set_unmod_seconds_label</zorder>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="unmod_timer">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="midLineWidth">
+          <number>0</number>
+         </property>
+         <property name="smallDecimalPoint">
+          <bool>false</bool>
+         </property>
+         <property name="digitCount">
+          <number>1</number>
+         </property>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="intValue" stdset="0">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_4">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QPushButton" name="unmod_timer_start_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Start</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="unmod_timer_pause_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Pause</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="unmod_timer_reset_button">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="settings_page">
       <layout class="QFormLayout" name="formLayout">
        <property name="horizontalSpacing">
@@ -1211,276 +1723,6 @@ background-color: #767676;
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QFrame" name="sidebar">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>75</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="cira_logo">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="res.qrc">:/img/resources/cira_logo.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="app_title">
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>24</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>MUN APP</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="home_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>1000</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="sizeIncrement">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>12</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Home</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="delegates_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>1000</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="sizeIncrement">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>12</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>Delegates</string>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="points_motions_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>12</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Points/Motions</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="moderated_caucus_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>12</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Moderated Caucus</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="settings_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial Black</family>
-          <pointsize>12</pointsize>
-          <weight>10</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Settings</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::MinimumExpanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>300</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>
