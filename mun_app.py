@@ -413,7 +413,11 @@ if __name__ == '__main__':
     
     json = resource_path('config.json')
 
-
+    try:
+        file = open(json, 'r')
+    except IOError:
+        file = open(json, 'w')
+    
     if(os.stat(json).st_size == 0):
         settings = Settings()
     else:

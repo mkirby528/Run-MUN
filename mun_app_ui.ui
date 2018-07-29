@@ -253,7 +253,7 @@ background-color: #767676;
      </property>
      <property name="minimumSize">
       <size>
-       <width>200</width>
+       <width>250</width>
        <height>0</height>
       </size>
      </property>
@@ -595,8 +595,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1192</width>
-            <height>715</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -787,8 +787,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>65</width>
-            <height>20</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -921,8 +921,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>394</width>
-            <height>645</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1295,8 +1295,6 @@ background-color: #767676;
             </widget>
            </item>
           </layout>
-          <zorder>add_unmod_button</zorder>
-          <zorder>add_unmod_button</zorder>
          </widget>
          <widget class="QWidget" name="set_time_page">
           <layout class="QGridLayout" name="gridLayout_2" columnstretch="9,9,0,0" columnminimumwidth="0,0,0,0">
@@ -1376,10 +1374,7 @@ background-color: #767676;
             <widget class="QSpinBox" name="set_unmod_sec_spinbox"/>
            </item>
           </layout>
-          <zorder>unmod_timer</zorder>
-          <zorder>unmod_timer</zorder>
           <zorder>cancel_set_unmod</zorder>
-          <zorder>unmod_timer</zorder>
           <zorder>confirm_set_unmod</zorder>
           <zorder>set_unmod_minutes_label</zorder>
           <zorder>set_unmod_min_spinbox</zorder>
