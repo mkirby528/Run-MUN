@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1387</width>
-    <height>875</height>
+    <width>1711</width>
+    <height>935</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,7 +37,7 @@ QLabel#app_title{
 	color:white;
 	font: 87 24pt &quot;Arial Black&quot;;
 }
-#home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button,#unmod_button {
+#home_button,#delegates_button,#points_motions_button,#settings_button, #moderated_caucus_button,#unmod_button, #stats_button {
 		background-color: transparent;
 		border-color: transparent;
 		color:white;	
@@ -48,7 +48,7 @@ QLabel#app_title{
 
 }
 
-QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover,#moderated_caucus_button:hover, #unmod_button:hover{
+QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hover,#settings_button:hover,#moderated_caucus_button:hover, #unmod_button:hover, #stats_button:hover{
 	background-color: #4B9CD3;
 
 }
@@ -58,7 +58,7 @@ QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hov
 
 }
 
-#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label, #unmod_title_label{
+#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label, #unmod_title_label,#stats_title_label{
 	color:white;
 	font: 24pt &quot;Arial Black&quot;;
 	padding-bottom: 10px;
@@ -124,7 +124,7 @@ QRadioButton::indicator:unchecked {
 	border-color: transparent
 }
 
-#points_motion_scroll_contents {
+#points_motion_scroll_contents,#stats_page {
 	background-color: #4B9CD3;
 }
 
@@ -481,6 +481,13 @@ background-color: #767676;
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="stats_button">
+        <property name="text">
+         <string>Stats</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="settings_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -544,7 +551,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="home_page"/>
      <widget class="QWidget" name="delegates_page">
@@ -595,8 +602,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1443</width>
+            <height>775</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -770,7 +777,7 @@ background-color: #767676;
        <item>
         <widget class="QPushButton" name="add_motion_button">
          <property name="text">
-          <string>Add Motion</string>
+          <string>Add Motion(for unmod you only need duration)</string>
          </property>
         </widget>
        </item>
@@ -787,8 +794,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1443</width>
+            <height>810</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -921,8 +928,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>477</width>
+            <height>705</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1129,6 +1136,9 @@ background-color: #767676;
              </item>
              <item row="6" column="1">
               <widget class="QComboBox" name="motioned_by_combo_box">
+               <property name="styleSheet">
+                <string notr="true">background-color: #767676;color:white</string>
+               </property>
                <property name="insertPolicy">
                 <enum>QComboBox::InsertAlphabetically</enum>
                </property>
@@ -1452,6 +1462,27 @@ background-color: #767676;
           </item>
          </layout>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="stats_page">
+      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="stats_title_label">
+         <property name="text">
+          <string>Times Called On</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="stats_layout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+        </layout>
        </item>
       </layout>
      </widget>

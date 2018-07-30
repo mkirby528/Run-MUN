@@ -35,6 +35,7 @@ class Delegate(object):
     def __init__(self,title='Default Name'):
         self.title = title
         self.isPresent = True
+        self.times_called_on = 0
 
 
     

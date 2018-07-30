@@ -11,6 +11,11 @@ import math
 import time
 from moderated_caucus import ModeratedCaucus
 import resources
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+import numpy as np
+
 
 class MainWindow(QtWidgets.QWidget):
 
@@ -45,8 +50,10 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.addModPressed())
         self.unmod_button.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(6))
-        self.settings_button.clicked.connect(
+        self.stats_button.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(7))
+        self.settings_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(8))
 
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
@@ -121,8 +128,39 @@ class MainWindow(QtWidgets.QWidget):
         self.cancel_set_unmod.clicked.connect(lambda: self.add_unmod_widget.setCurrentIndex(0))
         self.confirm_set_unmod.clicked.connect(lambda:  self.setUnmod(self.set_unmod_min_spinbox.value() * 60 + self.set_unmod_sec_spinbox.value()))
 
-   #------------------------------------Functionality------------------------------------#
+        #Data
 
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure)
+    
+        self.ax = self.figure.add_subplot(111)
+        # self.figure.tight_layout()
+        self.figure.patch.set_facecolor('#4B9CD3')
+        self.ax.set_facecolor("#13294B")
+        self.stats_layout.addWidget(self.canvas)
+        self.updateData()
+        
+     
+
+
+
+   #------------------------------------Functionality------------------------------------#
+    def updateData(self):
+        self.ax.cla()
+        y = []
+        if(settings.delegates):
+            for delegate in settings.delegates:
+                self.ax.bar(delegate.title, delegate.times_called_on)
+                y.append(delegate.times_called_on)
+            for tick in self.ax.get_xticklabels():
+                # tick.set_rotation(45)
+                tick.set_fontsize(6)
+            yint = range(min(y), math.ceil(max(y))+1)   
+            self.figure.autofmt_xdate()
+            self.ax.set_yticks(yint)
+        self.figure.tight_layout()
+
+        self.canvas.draw()
     # Delegates Page Functions
     def deleteDelegate(self, widget):
         delegate_name = widget.delegate_name_label.text()
@@ -137,6 +175,7 @@ class MainWindow(QtWidgets.QWidget):
                                                       ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
                 self.settings.delegates.remove(delegate)
                 self.settings.toJSON()
+                self.updateData()
                 self.removeItemComboBox(delegate.title)
 
     def onAddDelButtonClicked(self):
@@ -173,8 +212,9 @@ class MainWindow(QtWidgets.QWidget):
 
     def onConfirmAddDelegatePressed(self):
         self.settings.delegates.append(
-            Delegate(self.add_delegate_name_field.text()))
+            Delegate(self.add_delegate_name_field.text().strip()))
         self.settings.toJSON()
+        self.updateData()
         self.dels_layout.setAlignment(Qt.AlignTop)
 
        
@@ -198,6 +238,7 @@ class MainWindow(QtWidgets.QWidget):
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         self.settings.toJSON()
+        self.updateData()
     # Settings Page Button Functions
 
     def onCrisisClicked(self):
@@ -247,15 +288,20 @@ class MainWindow(QtWidgets.QWidget):
         for delegate in self.settings.delegates:
             self.motion_views[-1].delegates_combo_box.addItem(delegate.title,delegate)
             self.motion_views[-1].delegates_combo_box.model().sort(0)
-        self.motion_views[-1].start_motion_button.clicked.connect(lambda _, b=self.motion_views[-1]: self.startModFromMotions(b))
+        self.motion_views[-1].start_motion_button.clicked.connect(lambda _, b=self.motion_views[-1]: self.startCaucusFromMotions(b))
 
-    def startModFromMotions(self,b):
-        self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.topic_line_edit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
-        for i in reversed(range(self.speaker_list_layout.count())):
-            self.speaker_list_layout.itemAt(i).widget().setParent(None)
+    def startCaucusFromMotions(self,b):
+        if(b.mod_check_box.isChecked()):
+            self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.topic_line_edit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+            for i in reversed(range(self.speaker_list_layout.count())):
+                self.speaker_list_layout.itemAt(i).widget().setParent(None)
 
-        self.setUpMod(self.caucus.duration,
-                      self.caucus.speaking_time, self.caucus.topic)
+            self.setUpMod(self.caucus.duration,
+                        self.caucus.speaking_time, self.caucus.topic)
+        elif(b.unmod_check_box.isChecked()):
+            self.defualt_unmod_time_value = int(b.doubleSpinBox.value() * 60)
+            self.resetTimer('unmod')
+            self.content_pane.setCurrentIndex(6)
 
     def addItemComboBox(self, delegate):
         for view in self.motion_views:
@@ -270,9 +316,10 @@ class MainWindow(QtWidgets.QWidget):
 
     # Add Mod Functions
     def addModPressed(self):
+        self.motioned_by_combo_box.clear()
         for delegate in self.settings.delegates:
             self.motioned_by_combo_box.addItem(delegate.title, delegate)
-            self.motioned_by_combo_box.setItemData(1, 1, Qt.UserRole)
+            # self.motioned_by_combo_box.setItemData(1, 1, Qt.UserRole)
 
         self.content_pane.setCurrentIndex(5)
 
@@ -281,9 +328,11 @@ class MainWindow(QtWidgets.QWidget):
         ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text(), self.motioned_by_combo_box.currentData(), self.first_speech_button.isChecked())
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
-
+        self.motioned_by_combo_box.currentData().times_called_on += 1
+        settings.toJSON()
         self.setUpMod(self.caucus.duration,
                       self.caucus.speaking_time, self.caucus.topic)
+        self.updateData()
 
     def setUpMod(self, duration, speaking_time, topic):
         self.speaker_list_layout.setAlignment(Qt.AlignTop)
@@ -332,7 +381,11 @@ class MainWindow(QtWidgets.QWidget):
         b.setCurrentIndex(0)
 
     def onConfirmSpeakerClicked(self,b):
-        b.speaker_name_label.setText(b.add_speaker_combo_box.currentText())
+        delegate = b.add_speaker_combo_box.currentData()
+        b.speaker_name_label.setText(delegate.title)
+        delegate.times_called_on +=1
+        settings.toJSON()
+        self.updateData()
         b.setCurrentIndex(0)
 
     def startTimer(self,mode):
@@ -390,6 +443,8 @@ class MainWindow(QtWidgets.QWidget):
         self.countdown_value_unmod = self.defualt_unmod_time_value
         self.resetTimer('unmod')
         self.add_unmod_widget.setCurrentIndex(0)
+
+
 
 def getTime(time):
     minutes = math.floor(time / 60)
