@@ -674,7 +674,7 @@ background-color: #767676;
              <pixmap resource="res.qrc">:/img/resources/united-nations-logo.png</pixmap>
             </property>
             <property name="scaledContents">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
