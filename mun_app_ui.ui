@@ -551,9 +551,26 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="home_page"/>
+     <widget class="QWidget" name="home_page">
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="welcome_to_conference_label">
+           <property name="text">
+            <string>Welcome To Default Conference Name</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="delegates_page">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -1424,7 +1441,7 @@ background-color: #767676;
        <item>
         <widget class="QFrame" name="frame_4">
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>

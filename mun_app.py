@@ -22,15 +22,15 @@ class MainWindow(QtWidgets.QWidget):
     def __init__(self, settings, app):
         super(MainWindow, self).__init__()
         self.settings = settings
-        self.caucus = ModeratedCaucus(0,30,'default topic')
+        self.caucus = ModeratedCaucus(0, 30, 'default topic')
         self.defualt_unmod_time_value = 30
         munapp_ui = resource_path('mun_app_ui.ui')
         uic.loadUi(munapp_ui, self)
-
         self.countdown_value_mod = 30
         self.countdown_value_unmod = 30
         self.timer_state = False
-        self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
+        self.countdown_timer.setDigitCount(
+            len(getTime(self.countdown_value_mod)))
         self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
 
         self.countdown_timer.display(getTime(self.countdown_value_mod))
@@ -55,6 +55,9 @@ class MainWindow(QtWidgets.QWidget):
         self.settings_button.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(8))
 
+        #Home Page
+        self.welcome_to_conference_label.setText('Welcome to ' + self.settings.conference_name +'!')
+
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
         self.ga_button.clicked.connect(self.onGaClicked)
@@ -70,9 +73,8 @@ class MainWindow(QtWidgets.QWidget):
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
-         
-            delegate_ui = resource_path('delegate_view.ui')
 
+            delegate_ui = resource_path('delegate_view.ui')
 
             del_view = uic.loadUi(delegate_ui)
             self.dels_layout.setAlignment(Qt.AlignTop)
@@ -120,32 +122,36 @@ class MainWindow(QtWidgets.QWidget):
         self.pause_timer_mod.clicked.connect(lambda: self.pauseTimer('mod'))
         self.reset_timer_mod.clicked.connect(lambda: self.resetTimer('mod'))
 
-        #Unmod
-        self.unmod_timer_start_button.clicked.connect(lambda: self.startTimer('unmod'))
-        self.unmod_timer_pause_button.clicked.connect(lambda: self.pauseTimer('unmod'))
-        self.unmod_timer_reset_button.clicked.connect(lambda: self.resetTimer('unmod'))
-        self.add_unmod_button.clicked.connect(lambda: self.add_unmod_widget.setCurrentIndex(1))
-        self.cancel_set_unmod.clicked.connect(lambda: self.add_unmod_widget.setCurrentIndex(0))
-        self.confirm_set_unmod.clicked.connect(lambda:  self.setUnmod(self.set_unmod_min_spinbox.value() * 60 + self.set_unmod_sec_spinbox.value()))
+        # Unmod
+        self.unmod_timer_start_button.clicked.connect(
+            lambda: self.startTimer('unmod'))
+        self.unmod_timer_pause_button.clicked.connect(
+            lambda: self.pauseTimer('unmod'))
+        self.unmod_timer_reset_button.clicked.connect(
+            lambda: self.resetTimer('unmod'))
+        self.add_unmod_button.clicked.connect(
+            lambda: self.add_unmod_widget.setCurrentIndex(1))
+        self.cancel_set_unmod.clicked.connect(
+            lambda: self.add_unmod_widget.setCurrentIndex(0))
+        self.confirm_set_unmod.clicked.connect(lambda:  self.setUnmod(
+            self.set_unmod_min_spinbox.value() * 60 + self.set_unmod_sec_spinbox.value()))
 
-        #Data
+        # Data
 
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
-    
+
         self.ax = self.figure.add_subplot(111)
         # self.figure.tight_layout()
         self.figure.patch.set_facecolor('#4B9CD3')
         self.ax.set_facecolor("#13294B")
         self.stats_layout.addWidget(self.canvas)
         self.updateData()
-        
-     
-
-
 
    #------------------------------------Functionality------------------------------------#
+
     def updateData(self):
+        settings.delegates.sort(key=lambda x: x.title)
         self.ax.cla()
         y = []
         if(settings.delegates):
@@ -154,14 +160,15 @@ class MainWindow(QtWidgets.QWidget):
                 y.append(delegate.times_called_on)
             for tick in self.ax.get_xticklabels():
                 # tick.set_rotation(45)
-                tick.set_fontsize(6)
-            yint = range(min(y), math.ceil(max(y))+1)   
+                tick.set_fontsize(10)
+            yint = range(min(y), math.ceil(max(y))+1)
             self.figure.autofmt_xdate()
             self.ax.set_yticks(yint)
         self.figure.tight_layout()
 
         self.canvas.draw()
     # Delegates Page Functions
+
     def deleteDelegate(self, widget):
         delegate_name = widget.delegate_name_label.text()
         self.dels_layout.removeWidget(widget)
@@ -217,7 +224,6 @@ class MainWindow(QtWidgets.QWidget):
         self.updateData()
         self.dels_layout.setAlignment(Qt.AlignTop)
 
-       
         delegate_ui = resource_path('delegate_view.ui')
 
         del_view = uic.loadUi(delegate_ui)
@@ -277,7 +283,7 @@ class MainWindow(QtWidgets.QWidget):
 
     # Points and Motions Button Functions
     def addMotionView(self):
-       
+
         motion_options = resource_path('motion_options.ui')
         self.motion_views.append(uic.loadUi(motion_options))
         self.motion_views[-1].delegates_combo_box.setEditable(True)
@@ -286,18 +292,21 @@ class MainWindow(QtWidgets.QWidget):
         ).setAlignment(QtCore.Qt.AlignCenter)
         self.points_motions_layout.addWidget(self.motion_views[-1])
         for delegate in self.settings.delegates:
-            self.motion_views[-1].delegates_combo_box.addItem(delegate.title,delegate)
+            self.motion_views[-1].delegates_combo_box.addItem(
+                delegate.title, delegate)
             self.motion_views[-1].delegates_combo_box.model().sort(0)
-        self.motion_views[-1].start_motion_button.clicked.connect(lambda _, b=self.motion_views[-1]: self.startCaucusFromMotions(b))
+        self.motion_views[-1].start_motion_button.clicked.connect(
+            lambda _, b=self.motion_views[-1]: self.startCaucusFromMotions(b))
 
-    def startCaucusFromMotions(self,b):
+    def startCaucusFromMotions(self, b):
         if(b.mod_check_box.isChecked()):
-            self.caucus = ModeratedCaucus(b.doubleSpinBox.value(),b.spinBox.value(),b.topic_line_edit.text(),b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+            self.caucus = ModeratedCaucus(b.doubleSpinBox.value(), b.spinBox.value(
+            ), b.topic_line_edit.text(), b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
             for i in reversed(range(self.speaker_list_layout.count())):
                 self.speaker_list_layout.itemAt(i).widget().setParent(None)
 
             self.setUpMod(self.caucus.duration,
-                        self.caucus.speaking_time, self.caucus.topic)
+                          self.caucus.speaking_time, self.caucus.topic)
         elif(b.unmod_check_box.isChecked()):
             self.defualt_unmod_time_value = int(b.doubleSpinBox.value() * 60)
             self.resetTimer('unmod')
@@ -305,7 +314,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def addItemComboBox(self, delegate):
         for view in self.motion_views:
-            view.delegates_combo_box.addItem(delegate.title,delegate)
+            view.delegates_combo_box.addItem(delegate.title, delegate)
             view.delegates_combo_box.setItemData(1, 1, Qt.UserRole)
 
     def removeItemComboBox(self, name):
@@ -341,16 +350,19 @@ class MainWindow(QtWidgets.QWidget):
         else:
             return
         for i in range(int(num_speakers)):
-            
+
             speaker_view = resource_path('speaker_view.ui')
             speaker_view = uic.loadUi(speaker_view)
-            speaker_view.add_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
-            speaker_view.cancel_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))
-            speaker_view.confirm_speaker_button.clicked.connect(lambda _, b=speaker_view: self.onConfirmSpeakerClicked(b))
-
+            speaker_view.add_speaker_button.clicked.connect(
+                lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
+            speaker_view.cancel_speaker_button.clicked.connect(
+                lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))
+            speaker_view.confirm_speaker_button.clicked.connect(
+                lambda _, b=speaker_view: self.onConfirmSpeakerClicked(b))
 
             for delegate in self.settings.delegates:
-                speaker_view.add_speaker_combo_box.addItem(delegate.title,delegate)
+                speaker_view.add_speaker_combo_box.addItem(
+                    delegate.title, delegate)
             speaker_view.speaker_number_label.setText(str(i+1))
             if(self.caucus.is_first_speaker and i == 0):
                 speaker_view.speaker_name_label.setText(
@@ -373,29 +385,30 @@ class MainWindow(QtWidgets.QWidget):
             self.countdown_value_mod.setDigitCount(4)
         self.countdown_timer.display(getTime(self.countdown_value_mod))
 
-    def onAddSpeakerClicked(self,b):
+    def onAddSpeakerClicked(self, b):
         b.setCurrentIndex(1)
 
-    
-    def onCancelSpeakerClicked(self,b):
+    def onCancelSpeakerClicked(self, b):
         b.setCurrentIndex(0)
 
-    def onConfirmSpeakerClicked(self,b):
+    def onConfirmSpeakerClicked(self, b):
         delegate = b.add_speaker_combo_box.currentData()
         b.speaker_name_label.setText(delegate.title)
-        delegate.times_called_on +=1
+        delegate.times_called_on += 1
         settings.toJSON()
         self.updateData()
         b.setCurrentIndex(0)
 
-    def startTimer(self,mode):
+    def startTimer(self, mode):
         self.timer_state = True
         if(mode == 'mod'):
             for tick in range(self.countdown_value_mod, -1, -1):
-                self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod -1)))
+                self.countdown_timer.setDigitCount(
+                    len(getTime(self.countdown_value_mod - 1)))
                 if(self.timer_state):
                     self.countdown_value_mod = self.countdown_value_mod - 1
-                    self.countdown_timer.display(getTime(self.countdown_value_mod))
+                    self.countdown_timer.display(
+                        getTime(self.countdown_value_mod))
                     self.start_timer_mod.setEnabled(not tick)
                     start = time.time()
                     while time.time() - start < 1:
@@ -403,16 +416,17 @@ class MainWindow(QtWidgets.QWidget):
                         time.sleep(0.02)
         else:
             for tick in range(self.countdown_value_unmod, -1, -1):
-                self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_unmod)))
+                self.unmod_timer.setDigitCount(
+                    len(getTime(self.countdown_value_unmod)))
                 if(self.timer_state):
                     self.countdown_value_unmod = self.countdown_value_unmod - 1
-                    self.unmod_timer.display(getTime(self.countdown_value_unmod))
+                    self.unmod_timer.display(
+                        getTime(self.countdown_value_unmod))
                     self.unmod_timer_start_button.setEnabled(not tick)
                     start = time.time()
                     while time.time() - start < 1:
                         app.processEvents()
                         time.sleep(0.02)
-        
 
     def pauseTimer(self, mode):
         if(self.timer_state):
@@ -428,16 +442,18 @@ class MainWindow(QtWidgets.QWidget):
         self.timer_state = False
         if(mode == 'mod'):
             self.countdown_value_mod = self.caucus.speaking_time
-            self.countdown_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
+            self.countdown_timer.setDigitCount(
+                len(getTime(self.countdown_value_mod)))
             self.countdown_timer.display(getTime(self.countdown_value_mod))
             self.start_timer_mod.setEnabled(True)
         else:
             self.countdown_value_unmod = self.defualt_unmod_time_value
-            self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_unmod)))
+            self.unmod_timer.setDigitCount(
+                len(getTime(self.countdown_value_unmod)))
             self.unmod_timer.display(getTime(self.countdown_value_unmod))
             self.unmod_timer_start_button.setEnabled(True)
 
-    ##Unmod 
+    # Unmod
     def setUnmod(self, seconds):
         self.defualt_unmod_time_value = seconds
         self.countdown_value_unmod = self.defualt_unmod_time_value
@@ -445,34 +461,33 @@ class MainWindow(QtWidgets.QWidget):
         self.add_unmod_widget.setCurrentIndex(0)
 
 
-
 def getTime(time):
     minutes = math.floor(time / 60)
     seconds = time % 60
-    if(seconds < 10): 
+    if(seconds < 10):
         seconds = '0'+str(seconds)
-    if(minutes != 0 ):
-        return str(minutes) + ':' +str(seconds)
+    if(minutes != 0):
+        return str(minutes) + ':' + str(seconds)
     else:
         return ':' + str(seconds)
 
 
 def resource_path(relative_path):
-  if hasattr(sys, '_MEIPASS'):
-      return os.path.join(sys._MEIPASS, relative_path)
-  return os.path.join(os.path.abspath('.'), relative_path)
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath('.'), relative_path)
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
-    
     json = resource_path('config.json')
 
     try:
         file = open(json, 'r')
     except IOError:
         file = open(json, 'w')
-    
+
     if(os.stat(json).st_size == 0):
         settings = Settings()
     else:
