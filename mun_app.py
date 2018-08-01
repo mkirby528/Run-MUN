@@ -59,7 +59,24 @@ class MainWindow(QtWidgets.QWidget):
 
         #Home Page
         self.welcome_to_conference_label.setText('Welcome to ' + self.settings.conference_name +'!')
-      
+        self.image_path_label.setText(self.settings.image)
+        pixmap = QPixmap(self.settings.image)
+        # pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
+        self.home_img_label.setPixmap(pixmap)
+        self.home_delegates_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(1))
+        self.home_pm_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(3))
+        self.home_mod_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(4))
+        self.home_unmod_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(6))
+        self.home_stats_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(7))
+        self.home_settings_button.clicked.connect(
+            lambda: self.content_pane.setCurrentIndex(8))
+
+
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
         self.ga_button.clicked.connect(self.onGaClicked)
@@ -171,11 +188,11 @@ class MainWindow(QtWidgets.QWidget):
 
 
     def updateData(self):
-        settings.delegates.sort(key=lambda x: x.title)
+        sort = sorted(settings.delegates, key=lambda x: x.title)
         self.ax.cla()
         y = []
-        if(settings.delegates):
-            for delegate in settings.delegates:
+        if(sort):
+            for delegate in sort:
                 self.ax.bar(delegate.title, delegate.times_called_on)
                 y.append(delegate.times_called_on)
             for tick in self.ax.get_xticklabels():
@@ -239,7 +256,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def onConfirmAddDelegatePressed(self):
         self.settings.delegates.append(
-            Delegate(self.add_delegate_name_field.text().strip().strip()))
+            Delegate(self.add_delegate_name_field.text().strip()))
         self.settings.toJSON()
         self.updateData()
         self.dels_layout.setAlignment(Qt.AlignTop)
@@ -271,7 +288,7 @@ class MainWindow(QtWidgets.QWidget):
         fileName, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
         if('jpg' in fileName or 'png' in fileName or 'jpeg' in fileName or 'bmp' in fileName or 'ico' in fileName):
             self.settings.image = fileName
-            settings.toJSON
+            self.settings.toJSON
             self.image_path_label.setText(self.settings.image)
             pixmap = QPixmap(self.settings.image)
             pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
@@ -281,13 +298,13 @@ class MainWindow(QtWidgets.QWidget):
         self.settings.committeeType = 'Crisis'
         self.cd_label.show()
         self.cd_field.show()
-        settings.toJSON
+        self.settings.toJSON
 
     def onGaClicked(self):
         self.settings.committee_type = 'GA'
         self.cd_label.hide()
         self.cd_field.hide()
-        settings.toJSON
+        self.settings.toJSON
 
     def onGapClicked(self):
         self.settings.committee_type = 'GAP'
@@ -296,13 +313,13 @@ class MainWindow(QtWidgets.QWidget):
         self.settings.toJSON
 
     def onSaveClicked(self):
-        self.settings.conference_name = self.conference_title_field.text().strip().strip()
-        self.settings.committee_name = self.committee_title_field.text().strip().strip()
-        self.settings.chair_name = self.chair_field.text().strip().strip()
-        self.settings.co_chair_name = self.co_chair_field.text().strip().strip()
+        self.settings.conference_name = self.conference_title_field.text().strip()
+        self.settings.committee_name = self.committee_title_field.text().strip()
+        self.settings.chair_name = self.chair_field.text().strip()
+        self.settings.co_chair_name = self.co_chair_field.text().strip()
         if(self.crisis_button.isChecked()):
             self.settings.committeeType = 'Crisis'
-            self.settings.crisis_director_name = self.cd_field.text().strip().strip()
+            self.settings.crisis_director_name = self.cd_field.text().strip()
         elif(self.ga_button.isChecked()):
             self.settings.crisis_director_name = ''
             self.settings.committee_type = 'GA'
@@ -368,7 +385,7 @@ class MainWindow(QtWidgets.QWidget):
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
         self.motioned_by_combo_box.currentData().times_called_on += 1
-        settings.toJSON()
+        self.settings.toJSON()
         self.setUpMod(self.caucus.duration,
                       self.caucus.speaking_time, self.caucus.topic)
         self.updateData()
@@ -425,7 +442,7 @@ class MainWindow(QtWidgets.QWidget):
         delegate = b.add_speaker_combo_box.currentData()
         b.speaker_name_label.setText(delegate.title)
         delegate.times_called_on += 1
-        settings.toJSON()
+        self.settings.toJSON()
         self.updateData()
         b.setCurrentIndex(0)
 

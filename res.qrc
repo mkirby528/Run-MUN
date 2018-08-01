@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>resources/home.png</file>
     <file>resources/settings.png</file>
     <file>resources/bar-chart.png</file>
     <file>resources/stopwatch.png</file>
