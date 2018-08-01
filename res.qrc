@@ -1,6 +1,13 @@
 <RCC>
   <qresource prefix="img">
+    <file>resources/settings.png</file>
+    <file>resources/bar-chart.png</file>
+    <file>resources/stopwatch.png</file>
+    <file>resources/mod_icon.png</file>
+    <file>resources/pm_icon.png</file>
+    <file>resources/delegate_icon.png</file>
     <file>resources/add.png</file>
+    <file>resources/united-nations-logo.png</file>
     <file>resources/cancel_icon.png</file>
     <file>resources/check_icon.png</file>
     <file>resources/cira_logo.png</file>

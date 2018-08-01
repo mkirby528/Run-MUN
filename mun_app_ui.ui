@@ -6,15 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1711</width>
-    <height>935</height>
+    <width>1262</width>
+    <height>988</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -53,24 +65,24 @@ QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hov
 
 }
 
-#settings_page, #points_motions_page, #moderated_caucus_page{
+#settings_page, #points_motions_page, #moderated_caucus_page,#home_page{
 	background-color: #4B9CD3;
 
 }
 
-#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label, #unmod_title_label,#stats_title_label{
+#settings_title_label, #delegates_title_label, #points_and_motions_label,#moderated_caucus_title_label, #unmod_title_label,#stats_title_label, #welcome_to_conference_label{
 	color:white;
 	font: 24pt &quot;Arial Black&quot;;
 	padding-bottom: 10px;
 
 }
 
-#conference_title_label,#committee_title_label,#chair_label, #co_chair_label,#cd_label{
+#conference_title_label,#committee_title_label,#chair_label, #co_chair_label,#cd_label,#image_label{
 	color:white;
 	font: 16pt &quot;Arial Black&quot;;
 }
 
-#conference_title_field,#committee_title_field, #chair_field,#co_chair_field,#cd_field{
+#conference_title_field,#committee_title_field, #chair_field,#co_chair_field,#cd_field,#image_path_label{
 	color:white;
 	background-color: #4B9CD3;
 	font: 12pt &quot;Arial Black&quot;;
@@ -101,12 +113,24 @@ QRadioButton::indicator:unchecked {
     border:                 2px solid white;
 }
 
-#save_button{
+#save_button,#add_image_button{
 	background-color: #13294b;
 	color: white;
 	font: 87 30pt &quot;Arial Black&quot;;
 
 }
+#add_image_button{
+background-color: #767676;
+	color: white;
+	font: 87 14pt &quot;Arial Black&quot;;
+}
+
+#add_image_button:hover{
+background-color: #13294b;
+	color: white;
+	font: 87 14pt &quot;Arial Black&quot;;
+}
+
 
 #delegates_page, #dels_scroll_area{
 		background-color: #4B9CD3;
@@ -225,9 +249,21 @@ background-color: #767676;
 	background-color: #13294b
 }
 
-</string>
+#home_committee_label,#home_chair_label,#home_co_label,#home_cd_label{
+	color:white;
+	font: 87 16pt &quot;Arial Black&quot;;
+}
+#home_delegates_button, #home_pm_button,#home_mod_button,#home_unmod_button,#home_stats_button,#home_settings_button {
+	background-color:#767676;
+	color:white;
+}
+
+#home_delegates_button:hover, #home_pm_button:hover,#home_mod_button:hover,#home_unmod_button:hover,#home_stats_button:hover,#home_settings_button:hover{
+	background-color:#13294b;
+	color:white;
+}</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,16">
+  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,20">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -246,14 +282,14 @@ background-color: #767676;
    <item>
     <widget class="QFrame" name="sidebar">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="minimumSize">
       <size>
-       <width>250</width>
+       <width>215</width>
        <height>0</height>
       </size>
      </property>
@@ -274,21 +310,6 @@ background-color: #767676;
       <enum>QFrame::Plain</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_9">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
       <item>
        <widget class="QLabel" name="cira_logo">
         <property name="text">
@@ -520,7 +541,7 @@ background-color: #767676;
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>300</height>
+          <height>200</height>
          </size>
         </property>
        </spacer>
@@ -531,7 +552,7 @@ background-color: #767676;
    <item>
     <widget class="QStackedWidget" name="content_pane">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -554,20 +575,420 @@ background-color: #767676;
       <number>0</number>
      </property>
      <widget class="QWidget" name="home_page">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QLabel" name="welcome_to_conference_label">
-           <property name="text">
-            <string>Welcome To Default Conference Name</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignHCenter|Qt::AlignTop</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QFrame" name="gridFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="welcome_to_conference_label">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="text">
+             <string>Welcome To Default Conference Name</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignHCenter|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="home_committee_label">
+            <property name="text">
+             <string>Committee: Default Committee</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="home_chair_label">
+            <property name="text">
+             <string>Chaiir: Defualt Chair</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="home_co_label">
+            <property name="text">
+             <string>Co-Chair: Defualt Co-Chair </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="home_cd_label">
+            <property name="text">
+             <string>Crisis Director: Defualt Crisis Director </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="home_img_label">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>1000</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="res.qrc">:/img/resources/united-nations-logo.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QFrame" name="frame_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="home_unmod_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Unmod / Timer</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/stopwatch.png</normaloff>:/img/resources/stopwatch.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="home_delegates_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Delegates</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/delegate_icon.png</normaloff>:/img/resources/delegate_icon.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="home_settings_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Settings</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/settings.png</normaloff>:/img/resources/settings.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="home_stats_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Stats </string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/bar-chart.png</normaloff>:/img/resources/bar-chart.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="home_pm_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Points / Motions </string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/pm_icon.png</normaloff>:/img/resources/pm_icon.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="home_mod_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>150</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Moderated Caucus </string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/img/resources/mod_icon.png</normaloff>:/img/resources/mod_icon.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -619,8 +1040,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1443</width>
-            <height>775</height>
+            <width>704</width>
+            <height>1024</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -811,8 +1232,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1443</width>
-            <height>810</height>
+            <width>704</width>
+            <height>1059</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -945,8 +1366,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>477</width>
-            <height>705</height>
+            <width>231</width>
+            <height>954</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1661,7 +2082,7 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item row="13" column="1">
+       <item row="15" column="1">
         <widget class="QPushButton" name="save_button">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1683,7 +2104,7 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
+       <item row="14" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -1696,7 +2117,7 @@ background-color: #767676;
          </property>
         </spacer>
        </item>
-       <item row="9" column="1">
+       <item row="11" column="1">
         <widget class="QFrame" name="frame">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -1744,7 +2165,7 @@ background-color: #767676;
          </layout>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="12" column="1">
         <widget class="QLabel" name="cd_label">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
@@ -1757,11 +2178,47 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item row="11" column="1">
+       <item row="13" column="1">
         <widget class="QLineEdit" name="cd_field">
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLabel" name="image_label">
+         <property name="text">
+          <string>Image </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QFrame" name="frame_5">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="add_image_button">
+            <property name="text">
+             <string>Add Image </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="image_path_label">
+            <property name="text">
+             <string>Image Path</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

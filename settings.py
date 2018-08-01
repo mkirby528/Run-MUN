@@ -17,7 +17,7 @@ class Settings(object):
             self.total_present_delegates = 0
             self.delegates=[]
             self.crisis_director_name  ='Defualt CD Name'
-            self.image = None 
+            self.image = 'Default Image Path' 
             self.toJSON()
       
 

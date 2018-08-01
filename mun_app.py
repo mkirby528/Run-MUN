@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, uic, QtWidgets
 from settings import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QFileDialog,QSizePolicy
 import math
 import time
 from moderated_caucus import ModeratedCaucus
@@ -21,6 +22,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def __init__(self, settings, app):
         super(MainWindow, self).__init__()
+        self.center()
         self.settings = settings
         self.caucus = ModeratedCaucus(0, 30, 'default topic')
         self.defualt_unmod_time_value = 30
@@ -57,17 +59,28 @@ class MainWindow(QtWidgets.QWidget):
 
         #Home Page
         self.welcome_to_conference_label.setText('Welcome to ' + self.settings.conference_name +'!')
-
+      
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
         self.ga_button.clicked.connect(self.onGaClicked)
         self.gap_button.clicked.connect(self.onGapClicked)
-        self.conference_title_field.setText(settings.conference_name)
-        self.committee_title_field.setText(settings.committee_name)
-        self.chair_field.setText(settings.chair_name)
-        self.co_chair_field.setText(settings.co_chair_name)
-        self.cd_field.setText(settings.crisis_director_name)
+        self.conference_title_field.setText(self.settings.conference_name)
+        self.home_committee_label.setText('Committee: ' +self.settings.committee_name)
+        self.home_chair_label.setText('Chair: ' + self.settings.chair_name)
+        self.home_co_label.setText('Co-Chair: ' + self.settings.co_chair_name)
+        if(self.settings.committee_type.lower() == 'crisis'):
+            self.home_cd_label.setText('Crisis Director: ' + self.settings.crisis_director_name)
+        else:
+            self.home_cd_label.hide()
+        self.committee_title_field.setText(self.settings.committee_name)
+        self.chair_field.setText(self.settings.chair_name)
+        self.co_chair_field.setText(self.settings.co_chair_name)
+        self.cd_field.setText(self.settings.crisis_director_name)
         self.save_button.clicked.connect(self.onSaveClicked)
+        self.add_image_button.clicked.connect(self.addImageClicked)
+        self.image_path_label.setText(self.settings.image)
+
+
 
         # Delegates Page
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
@@ -149,6 +162,13 @@ class MainWindow(QtWidgets.QWidget):
         self.updateData()
 
    #------------------------------------Functionality------------------------------------#
+    def center(self):
+        frameGm = self.frameGeometry()
+        screen = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        centerPoint = QtWidgets.QApplication.desktop().screenGeometry(screen).center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
+
 
     def updateData(self):
         settings.delegates.sort(key=lambda x: x.title)
@@ -170,7 +190,7 @@ class MainWindow(QtWidgets.QWidget):
     # Delegates Page Functions
 
     def deleteDelegate(self, widget):
-        delegate_name = widget.delegate_name_label.text()
+        delegate_name = widget.delegate_name_label.text().strip()
         self.dels_layout.removeWidget(widget)
         widget.hide()
         widget = None
@@ -192,7 +212,7 @@ class MainWindow(QtWidgets.QWidget):
         self.add_delegate_name_field.setFocus()
 
     def onPresentClicked(self, widget):
-        delegate_name = widget.delegate_name_label.text()
+        delegate_name = widget.delegate_name_label.text().strip()
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
                 if not(delegate.isPresent):
@@ -203,7 +223,7 @@ class MainWindow(QtWidgets.QWidget):
                 self.settings.toJSON()
 
     def onAbsentClicked(self, widget):
-        delegate_name = widget.delegate_name_label.text()
+        delegate_name = widget.delegate_name_label.text().strip()
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
                 if delegate.isPresent:
@@ -219,7 +239,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def onConfirmAddDelegatePressed(self):
         self.settings.delegates.append(
-            Delegate(self.add_delegate_name_field.text().strip()))
+            Delegate(self.add_delegate_name_field.text().strip().strip()))
         self.settings.toJSON()
         self.updateData()
         self.dels_layout.setAlignment(Qt.AlignTop)
@@ -247,6 +267,16 @@ class MainWindow(QtWidgets.QWidget):
         self.updateData()
     # Settings Page Button Functions
 
+    def addImageClicked(self):
+        fileName, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
+        if('jpg' in fileName or 'png' in fileName or 'jpeg' in fileName or 'bmp' in fileName or 'ico' in fileName):
+            self.settings.image = fileName
+            settings.toJSON
+            self.image_path_label.setText(self.settings.image)
+            pixmap = QPixmap(self.settings.image)
+            pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
+            self.home_img_label.setPixmap(pixmap)
+
     def onCrisisClicked(self):
         self.settings.committeeType = 'Crisis'
         self.cd_label.show()
@@ -266,13 +296,13 @@ class MainWindow(QtWidgets.QWidget):
         self.settings.toJSON
 
     def onSaveClicked(self):
-        self.settings.conference_name = self.conference_title_field.text()
-        self.settings.committee_name = self.committee_title_field.text()
-        self.settings.chair_name = self.chair_field.text()
-        self.settings.co_chair_name = self.co_chair_field.text()
+        self.settings.conference_name = self.conference_title_field.text().strip().strip()
+        self.settings.committee_name = self.committee_title_field.text().strip().strip()
+        self.settings.chair_name = self.chair_field.text().strip().strip()
+        self.settings.co_chair_name = self.co_chair_field.text().strip().strip()
         if(self.crisis_button.isChecked()):
             self.settings.committeeType = 'Crisis'
-            self.settings.crisis_director_name = self.cd_field.text()
+            self.settings.crisis_director_name = self.cd_field.text().strip().strip()
         elif(self.ga_button.isChecked()):
             self.settings.crisis_director_name = ''
             self.settings.committee_type = 'GA'
@@ -301,7 +331,7 @@ class MainWindow(QtWidgets.QWidget):
     def startCaucusFromMotions(self, b):
         if(b.mod_check_box.isChecked()):
             self.caucus = ModeratedCaucus(b.doubleSpinBox.value(), b.spinBox.value(
-            ), b.topic_line_edit.text(), b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+            ), b.topic_line_edit.text().strip(), b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
             for i in reversed(range(self.speaker_list_layout.count())):
                 self.speaker_list_layout.itemAt(i).widget().setParent(None)
 
@@ -334,7 +364,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def addModeratedCaucus(self):
         self.caucus = ModeratedCaucus(self.duration_spin_box.value(
-        ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text(), self.motioned_by_combo_box.currentData(), self.first_speech_button.isChecked())
+        ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text().strip(), self.motioned_by_combo_box.currentData(), self.first_speech_button.isChecked())
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
         self.motioned_by_combo_box.currentData().times_called_on += 1
@@ -494,8 +524,10 @@ if __name__ == '__main__':
         with open(json, 'r') as file:
             jsonpickle.set_preferred_backend('simplejson')
             settings = jsonpickle.decode(file.read())
-
+    
     window = MainWindow(settings, app)
+    
     window.content_pane.setCurrentIndex(0)
+
     window.show()
     sys.exit(app.exec_())
