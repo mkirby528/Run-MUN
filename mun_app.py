@@ -17,7 +17,6 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from matplotlib.figure import Figure
 import numpy as np
 
-
 class MainWindow(QtWidgets.QWidget):
 
     def __init__(self, settings, app):
@@ -148,12 +147,15 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.content_pane.setCurrentIndex(4))
         self.confirm_add_button_mod.clicked.connect(
             lambda: self.addModeratedCaucus())
-
+        
+        
         # Mod
         self.start_timer_mod.clicked.connect(lambda: self.startTimer('mod'))
         self.pause_timer_mod.clicked.connect(lambda: self.pauseTimer('mod'))
         self.reset_timer_mod.clicked.connect(lambda: self.resetTimer('mod'))
-
+        self.add_ext_button.clicked.connect(self.addExtClicked)
+        self.cancel_add_ext.clicked.connect(lambda: self.add_ext_stack.setCurrentIndex(0))
+        self.confirm_add_ext.clicked.connect(lambda:self.addExtension())
         # Unmod
         self.unmod_timer_start_button.clicked.connect(
             lambda: self.startTimer('unmod'))
@@ -223,6 +225,7 @@ class MainWindow(QtWidgets.QWidget):
                 lambda _, b=del_view: self.deleteDelegate(b))
 
             self.dels_layout.addWidget(del_view)
+    
 
 
     def deleteDelegate(self, widget):
@@ -303,10 +306,12 @@ class MainWindow(QtWidgets.QWidget):
         self.updateData()
     # Settings Page Button Functions
     def resetImage(self):
-        pixmap = QPixmap(resource_path('resources/united-nations-logo.png'))
+        pixmap = QPixmap(':/img/resources/united-nations-logo.png')
         pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
         self.home_img_label.setPixmap(pixmap)
-    def addImageClicked(self):
+        self.settings.image = ':/img/resources/united-nations-logo.png'
+        self.settings.toJSON()
+    def addImageClicked(self): 
         fileName, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
         if('jpg' in fileName or 'png' in fileName or 'jpeg' in fileName or 'bmp' in fileName or 'ico' in fileName):
             self.settings.image = fileName
@@ -459,11 +464,50 @@ class MainWindow(QtWidgets.QWidget):
 
     def onCancelSpeakerClicked(self, b):
         b.setCurrentIndex(0)
+    def addExtClicked(self):
+        for delegate in self.settings.delegates:
+            self.ext_combo_box.addItem(delegate.title, delegate)
+            self.add_ext_stack.setCurrentIndex(1)
 
+    def addExtension(self):
+        duration = self.ext_spin_box.value()
+        self.speaker_list_layout.setAlignment(Qt.AlignTop)
+        if((duration * 60 / self.caucus.speaking_time).is_integer() and not duration == 0):
+            num_extra_speakers = (duration * 60 / self.caucus.speaking_time)
+            for i in range(int(num_extra_speakers) + 1):
+                speaker_view = resource_path('speaker_view.ui')
+                speaker_view = uic.loadUi(speaker_view)
+                if i == 0:
+                    speaker_view.setCurrentIndex(2)
+                
+                speaker_view.add_speaker_button.clicked.connect(
+                    lambda _, b=speaker_view: self.onAddSpeakerClicked(b))
+                speaker_view.cancel_speaker_button.clicked.connect(
+                    lambda _, b=speaker_view: self.onCancelSpeakerClicked(b))
+                speaker_view.confirm_speaker_button.clicked.connect(
+                    lambda _, b=speaker_view: self.onConfirmSpeakerClicked(b))
+
+                for delegate in self.settings.delegates:
+                    speaker_view.add_speaker_combo_box.addItem(
+                        delegate.title, delegate)
+                num_prev = int(self.caucus.duration * 60 / self.caucus.speaking_time)
+                speaker_view.speaker_number_label.setText(str(i+num_prev+num_prev))
+                if(self.ext_first.isChecked() and i == 1):
+                    speaker_view.speaker_name_label.setText(
+                        self.ext_combo_box.currentData().title)
+                elif(not self.ext_first.isChecked() and i == num_extra_speakers):
+                    speaker_view.speaker_name_label.setText(
+                        self.ext_combo_box.currentData().title)
+                self.ext_combo_box.currentData().times_called_on += 1
+                self.updateData()
+                self.speaker_list_layout.addWidget(speaker_view)
+            self.add_ext_stack.setCurrentIndex(0)
+            
     def onConfirmSpeakerClicked(self, b):
         delegate = b.add_speaker_combo_box.currentData()
         b.speaker_name_label.setText(delegate.title)
         delegate.times_called_on += 1
+        self.updateData()
         self.settings.toJSON()
         self.updateData()
         b.setCurrentIndex(0)

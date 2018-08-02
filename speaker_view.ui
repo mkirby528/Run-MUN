@@ -31,9 +31,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -103,18 +103,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -168,9 +168,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -240,18 +240,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -305,9 +305,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -377,18 +377,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>118</red>
-        <green>118</green>
-        <blue>118</blue>
+        <red>19</red>
+        <green>41</green>
+        <blue>75</blue>
        </color>
       </brush>
      </colorrole>
@@ -435,10 +435,10 @@
    <string>StackedWidget</string>
   </property>
   <property name="autoFillBackground">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#root, #StackedWidget, #display_mode_view, #add_mode_view{
+   <string notr="true">#root, #StackedWidget, #display_mode_view, #add_mode_view, #extension_view{
 	background-color: #13294B;
 
 }
@@ -601,6 +601,30 @@
         <width>32</width>
         <height>32</height>
        </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="extension_view">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+        <pointsize>24</pointsize>
+        <underline>true</underline>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white</string>
+      </property>
+      <property name="text">
+       <string>Extension</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
