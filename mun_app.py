@@ -95,11 +95,13 @@ class MainWindow(QtWidgets.QWidget):
         self.cd_field.setText(self.settings.crisis_director_name)
         self.save_button.clicked.connect(self.onSaveClicked)
         self.add_image_button.clicked.connect(self.addImageClicked)
+        self.reset_image_button.clicked.connect(self.resetImage)
         self.image_path_label.setText(self.settings.image)
 
 
 
         # Delegates Page
+        self.order_delegates_button.clicked.connect(self.onOrderDelegates)
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
@@ -205,6 +207,23 @@ class MainWindow(QtWidgets.QWidget):
 
         self.canvas.draw()
     # Delegates Page Functions
+    def onOrderDelegates(self):
+        for i in reversed(range(self.dels_layout.count())): 
+            self.dels_layout.itemAt(i).widget().setParent(None)
+        for delegate in sorted(self.settings.delegates, key = lambda x : x.title):
+            
+            delegate_ui = resource_path('delegate_view.ui')
+            del_view = uic.loadUi(delegate_ui)
+            del_view.delegate_name_label.setText(delegate.title)
+            del_view.present_button.clicked.connect(
+                lambda _, b=del_view: self.onPresentClicked(b))
+            del_view.absent_button.clicked.connect(
+                lambda _, b=del_view: self.onAbsentClicked(b))
+            del_view.delete_delegate_button.clicked.connect(
+                lambda _, b=del_view: self.deleteDelegate(b))
+
+            self.dels_layout.addWidget(del_view)
+
 
     def deleteDelegate(self, widget):
         delegate_name = widget.delegate_name_label.text().strip()
@@ -283,7 +302,10 @@ class MainWindow(QtWidgets.QWidget):
         self.settings.toJSON()
         self.updateData()
     # Settings Page Button Functions
-
+    def resetImage(self):
+        pixmap = QPixmap(resource_path('resources/united-nations-logo.png'))
+        pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
+        self.home_img_label.setPixmap(pixmap)
     def addImageClicked(self):
         fileName, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
         if('jpg' in fileName or 'png' in fileName or 'jpeg' in fileName or 'bmp' in fileName or 'ico' in fileName):

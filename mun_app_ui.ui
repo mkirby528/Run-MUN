@@ -113,19 +113,19 @@ QRadioButton::indicator:unchecked {
     border:                 2px solid white;
 }
 
-#save_button,#add_image_button{
+#save_button{
 	background-color: #13294b;
 	color: white;
 	font: 87 30pt &quot;Arial Black&quot;;
 
 }
-#add_image_button{
+#add_image_button,#reset_image_button{
 background-color: #767676;
 	color: white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
 
-#add_image_button:hover{
+#add_image_button:hover,#reset_image_button:hover{
 background-color: #13294b;
 	color: white;
 	font: 87 14pt &quot;Arial Black&quot;;
@@ -136,7 +136,7 @@ background-color: #13294b;
 		background-color: #4B9CD3;
 }
 
-#add_delegate_button, #add_motion_button, #add_mod_caucus_button, #add_unmod_button{
+#add_delegate_button, #add_motion_button, #add_mod_caucus_button, #add_unmod_button,#order_delegates_button{
 	background-color: #767676;
 	border-color: transparent;
 	color:white;
@@ -263,7 +263,7 @@ background-color: #767676;
 	color:white;
 }</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,20">
+  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,19">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -626,7 +626,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="home_page">
       <property name="sizePolicy">
@@ -1059,18 +1059,34 @@ background-color: #767676;
       </layout>
      </widget>
      <widget class="QWidget" name="delegates_page">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="delegates_title_label">
-         <property name="text">
-          <string>Delegates</string>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="2" column="0">
+        <widget class="QFrame" name="frame_8">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="7,3">
+          <item>
+           <widget class="QPushButton" name="add_delegate_button">
+            <property name="text">
+             <string>Add Delegate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="order_delegates_button">
+            <property name="text">
+             <string>Order Delegates Alphabetically </string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item>
+       <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="delegates_info_label">
          <property name="text">
           <string/>
@@ -1080,15 +1096,24 @@ background-color: #767676;
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="add_delegate_button">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="delegates_title_label">
          <property name="text">
-          <string>Add Delegate</string>
+          <string>Delegates</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="3" column="0">
         <widget class="QScrollArea" name="delegates_scroll_area">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
@@ -1106,11 +1131,17 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>999</width>
-            <height>828</height>
+            <width>993</width>
+            <height>810</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -1127,9 +1158,12 @@ background-color: #767676;
             <number>0</number>
            </property>
            <item>
-            <layout class="QVBoxLayout" name="dels_layout">
+            <layout class="QVBoxLayout" name="dels_layout" stretch="">
              <property name="spacing">
               <number>10</number>
+             </property>
+             <property name="sizeConstraint">
+              <enum>QLayout::SetNoConstraint</enum>
              </property>
             </layout>
            </item>
@@ -2284,6 +2318,13 @@ background-color: #767676;
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="reset_image_button">
+            <property name="text">
+             <string>Reset to Defualt</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -2307,7 +2348,6 @@ background-color: #767676;
   <tabstop>save_button</tabstop>
   <tabstop>home_button</tabstop>
   <tabstop>moderated_caucus_button</tabstop>
-  <tabstop>add_delegate_button</tabstop>
   <tabstop>delegates_scroll_area</tabstop>
   <tabstop>add_delegate_name_field</tabstop>
   <tabstop>cancel_button</tabstop>
