@@ -353,6 +353,18 @@ class MainWindow(QtWidgets.QWidget):
         else:
             self.settings.crisis_director_name = ''
             self.settings.committee_type = 'GAP'
+        self.welcome_to_conference_label.setText('Welcome to ' + self.settings.conference_name +'!')
+        self.image_path_label.setText(self.settings.image)
+        pixmap = QPixmap(self.settings.image)
+        # pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
+        self.home_img_label.setPixmap(pixmap)
+        self.home_committee_label.setText('Committee: ' +self.settings.committee_name)
+        self.home_chair_label.setText('Chair: ' + self.settings.chair_name)
+        self.home_co_label.setText('Co-Chair: ' + self.settings.co_chair_name)
+        if(self.settings.committee_type.lower() == 'crisis'):
+            self.home_cd_label.setText('Crisis Director: ' + self.settings.crisis_director_name)
+        else:
+            self.home_cd_label.hide()
         self.settings.toJSON()
 
     # Points and Motions Button Functions
