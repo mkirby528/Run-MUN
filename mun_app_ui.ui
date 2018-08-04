@@ -630,7 +630,7 @@ background-color: #767676;
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="home_page">
       <property name="sizePolicy">
@@ -1135,8 +1135,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1114</width>
+            <height>693</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1336,8 +1336,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1116</width>
-            <height>722</height>
+            <width>1120</width>
+            <height>746</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1473,8 +1473,8 @@ background-color: #767676;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>444</width>
-            <height>502</height>
+            <width>380</width>
+            <height>558</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1810,7 +1810,7 @@ background-color: #767676;
              <item row="7" column="1">
               <widget class="QFrame" name="frame_3">
                <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
+                <enum>QFrame::NoFrame</enum>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
