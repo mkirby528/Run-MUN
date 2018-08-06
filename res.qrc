@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>resources/checkmark-xxl.png</file>
     <file>resources/home.png</file>
     <file>resources/settings.png</file>
     <file>resources/bar-chart.png</file>

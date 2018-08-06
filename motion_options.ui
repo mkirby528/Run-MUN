@@ -41,7 +41,9 @@
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
-
+QCheckBox::indicator{
+	color:red;
+}
 #delegates_combo_box, #delegates_combo_box:item{
 color:white;
 	background-color: #767676;
@@ -55,7 +57,7 @@ color:white;
 }
 
 #start_motion_button{
-	background-color: transparent
+	background-color: #969696;
 }
 
 #topic_line_edit, #doubleSpinBox, #spinBox{
@@ -64,6 +66,13 @@ color:white;
 	border-color: transparent;
 	font: 87 16pt &quot;Arial Black&quot;;
 }
+QCheckBox::indicator:checked:pressed {
+    image: url(:/img/resources/checkmark-xxl.png);
+
+}QCheckBox::indicator:checked {
+       image: url(:/img/resources/checkmark-xxl.png);
+}
+
 
 </string>
   </property>
@@ -87,11 +96,20 @@ color:white;
    </item>
    <item row="3" column="1">
     <widget class="QCheckBox" name="unmod_check_box">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
       <string>Unmod</string>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -323,21 +341,39 @@ color:white;
    </item>
    <item row="4" column="1">
     <widget class="QCheckBox" name="other_check_box">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
       <string>Other</string>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
      </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item row="1" column="1">
     <widget class="QCheckBox" name="mod_check_box">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
       <string>Mod</string>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -356,6 +392,9 @@ color:white;
    </item>
    <item row="3" column="7">
     <widget class="QPushButton" name="start_motion_button">
+     <property name="styleSheet">
+      <string notr="true">background-color: transparent</string>
+     </property>
      <property name="text">
       <string/>
      </property>

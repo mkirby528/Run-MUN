@@ -605,6 +605,7 @@ def resource_path(relative_path):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
+    # app.setStyle(QtWidgets.QStyleFactory.create('fusion'))
 
     json = resource_path('config.json')
 
