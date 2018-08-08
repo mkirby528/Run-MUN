@@ -390,7 +390,6 @@ class MainWindow(QtWidgets.QWidget):
             ), b.topic_line_edit.text().strip(), b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
             for i in reversed(range(self.speaker_list_layout.count())):
                 self.speaker_list_layout.itemAt(i).widget().setParent(None)
-
             self.setUpMod(self.caucus.duration,
                           self.caucus.speaking_time, self.caucus.topic)
         elif(b.unmod_check_box.isChecked()):
@@ -423,8 +422,6 @@ class MainWindow(QtWidgets.QWidget):
         ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text().strip(), self.motioned_by_combo_box.currentData(), self.first_speech_button.isChecked())
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
-        self.motioned_by_combo_box.currentData().times_called_on += 1
-        self.settings.toJSON()
         self.setUpMod(self.caucus.duration,
                       self.caucus.speaking_time, self.caucus.topic)
         self.updateData()
@@ -436,7 +433,6 @@ class MainWindow(QtWidgets.QWidget):
         else:
             return
         for i in range(int(num_speakers)):
-
             speaker_view = resource_path('speaker_view.ui')
             speaker_view = uic.loadUi(speaker_view)
             speaker_view.add_speaker_button.clicked.connect(
@@ -459,6 +455,8 @@ class MainWindow(QtWidgets.QWidget):
 
             self.speaker_list_layout.addWidget(speaker_view)
 
+        self.caucus.motioned_by.times_called_on += 1
+        self.updateData()
         self.mod_info_label.setText(
             str(duration) + ' minute ' + str(speaking_time) + ' second caucus on ' + topic)
         self.countdown_value_mod = speaking_time
