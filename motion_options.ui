@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1194</width>
+    <width>1268</width>
     <height>123</height>
    </rect>
   </property>
@@ -76,44 +76,21 @@ QCheckBox::indicator:checked:pressed {
 
 </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="4,0,4,0,0,0,0,0" columnminimumwidth="0,0,200,0,0,0,0,0">
-   <item row="1" column="4">
-    <widget class="QLabel" name="speaking_time_label">
-     <property name="text">
-      <string>Speaking time(Seconds)</string>
+  <layout class="QGridLayout" name="gridLayout" columnstretch="4,0,4,0,0,0,0,0">
+   <item row="4" column="4">
+    <widget class="QSpinBox" name="spinBox">
+     <property name="frame">
+      <bool>false</bool>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
      <property name="minimum">
-      <double>1.000000000000000</double>
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>30</number>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QCheckBox" name="unmod_check_box">
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Unmod</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
+   <item row="2" column="3">
     <widget class="QLabel" name="duration_label">
      <property name="text">
       <string>Duration(Minutes)</string>
@@ -123,7 +100,7 @@ QCheckBox::indicator:checked:pressed {
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QComboBox" name="delegates_combo_box">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -329,7 +306,71 @@ QCheckBox::indicator:checked:pressed {
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="4" column="2">
+    <widget class="QLineEdit" name="topic_line_edit">
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="6">
+    <widget class="QCheckBox" name="first_check_box">
+     <property name="text">
+      <string>First Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="6">
+    <widget class="QCheckBox" name="last_check_box">
+     <property name="text">
+      <string>Last Speech</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="QLabel" name="speaking_time_label">
+     <property name="text">
+      <string>Speaking time(Seconds)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="6">
+    <widget class="QLabel" name="first_or_last_label">
+     <property name="text">
+      <string>First or Last?</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="topic_label">
+     <property name="text">
+      <string>Topic</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="minimum">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
     <widget class="QLabel" name="delegate_label">
      <property name="text">
       <string>Delegate</string>
@@ -339,58 +380,7 @@ QCheckBox::indicator:checked:pressed {
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QCheckBox" name="other_check_box">
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Other</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QCheckBox" name="mod_check_box">
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Mod</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4">
-    <widget class="QSpinBox" name="spinBox">
-     <property name="frame">
-      <bool>false</bool>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="value">
-      <number>30</number>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="7">
+   <item row="4" column="7">
     <widget class="QPushButton" name="start_motion_button">
      <property name="styleSheet">
       <string notr="true">background-color: transparent</string>
@@ -410,51 +400,83 @@ QCheckBox::indicator:checked:pressed {
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
-    <widget class="QCheckBox" name="first_check_box">
-     <property name="text">
-      <string>First Speech</string>
+   <item row="1" column="1" rowspan="5">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="styleSheet">
+      <string notr="true">border: 0px solid #000;
+</string>
      </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
+     <property name="title">
+      <string/>
      </property>
-    </widget>
-   </item>
-   <item row="4" column="6">
-    <widget class="QCheckBox" name="last_check_box">
-     <property name="text">
-      <string>Last Speech</string>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="6">
-    <widget class="QLabel" name="first_or_last_label">
-     <property name="text">
-      <string>First or Last?</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QLabel" name="topic_label">
-     <property name="text">
-      <string>Topic</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QLineEdit" name="topic_line_edit">
-     <property name="frame">
-      <bool>false</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>11</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="mod_check_box">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Mod</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="unmod_check_box">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Unmod</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="other_check_box">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Other</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
