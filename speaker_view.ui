@@ -551,7 +551,7 @@
        <string notr="true">background-color: #767676 ; color:white</string>
       </property>
       <property name="insertPolicy">
-       <enum>QComboBox::InsertAlphabetically</enum>
+       <enum>QComboBox::InsertAtBottom</enum>
       </property>
       <property name="duplicatesEnabled">
        <bool>false</bool>

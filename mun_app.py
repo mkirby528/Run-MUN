@@ -33,7 +33,7 @@ class MainWindow(QtWidgets.QWidget):
         self.countdown_timer.setDigitCount(
             len(getTime(self.countdown_value_mod)))
         self.unmod_timer.setDigitCount(len(getTime(self.countdown_value_mod)))
-
+        
         self.countdown_timer.display(getTime(self.countdown_value_mod))
         self.unmod_timer.display(getTime(self.countdown_value_unmod))
 
@@ -74,7 +74,12 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.content_pane.setCurrentIndex(7))
         self.home_settings_button.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(8))
-
+        if(self.settings.committee_type.lower() == 'crisis'):
+            self.home_cd_label.setText('Crisis Director: ' + self.settings.crisis_director_name)
+            self.home_cd_label.show()
+        else:
+            print(self.settings.committee_type)
+            self.home_cd_label.hide()
 
        # Settings Page
         self.crisis_button.clicked.connect(self.onCrisisClicked)
@@ -139,15 +144,14 @@ class MainWindow(QtWidgets.QWidget):
         self.motion_views = []
         self.points_motions_layout.setAlignment(Qt.AlignTop)
         self.add_motion_button.clicked.connect(self.addMotionView)
-        for i in range(3):
-            self.addMotionView()
+        self.addMotionView()
 
         # Add Moderated Caucus Page
         self.cancel_button_mod.clicked.connect(
             lambda: self.content_pane.setCurrentIndex(4))
         self.confirm_add_button_mod.clicked.connect(
             lambda: self.addModeratedCaucus())
-        
+        self.reset_motions_button.clicked.connect(lambda: self.resetMotions())
         
         # Mod
         self.start_timer_mod.clicked.connect(lambda: self.startTimer('mod'))
@@ -192,7 +196,7 @@ class MainWindow(QtWidgets.QWidget):
 
 
     def updateData(self):
-        sort = sorted(settings.delegates, key=lambda x: x.title)
+        sort = sorted(settings.delegates, key=lambda x: x.title.lower())
         self.ax.cla()
         y = []
         if(sort):
@@ -210,10 +214,11 @@ class MainWindow(QtWidgets.QWidget):
         self.canvas.draw()
     # Delegates Page Functions
     def onOrderDelegates(self):
+        self.settings.delegates.sort(key = lambda x : x.title.lower())
+        self.settings.toJSON()
         for i in reversed(range(self.dels_layout.count())): 
             self.dels_layout.itemAt(i).widget().setParent(None)
-        for delegate in sorted(self.settings.delegates, key = lambda x : x.title):
-            
+        for delegate in self.settings.delegates:
             delegate_ui = resource_path('delegate_view.ui')
             del_view = uic.loadUi(delegate_ui)
             del_view.delegate_name_label.setText(delegate.title)
@@ -309,10 +314,12 @@ class MainWindow(QtWidgets.QWidget):
         pixmap = QPixmap(':/img/resources/united-nations-logo.png')
         pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
         self.home_img_label.setPixmap(pixmap)
+        self.image_path_label.setText(':/img/resources/united-nations-logo.png')
         self.settings.image = ':/img/resources/united-nations-logo.png'
         self.settings.toJSON()
     def addImageClicked(self): 
         fileName, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
+        fileName = fileName.lower()
         if('jpg' in fileName or 'png' in fileName or 'jpeg' in fileName or 'bmp' in fileName or 'ico' in fileName):
             self.settings.image = fileName
             self.settings.toJSON
@@ -356,18 +363,23 @@ class MainWindow(QtWidgets.QWidget):
         self.welcome_to_conference_label.setText('Welcome to ' + self.settings.conference_name +'!')
         self.image_path_label.setText(self.settings.image)
         pixmap = QPixmap(self.settings.image)
-        # pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
+        pixmap = pixmap.scaled(self.home_img_label.size(),Qt.KeepAspectRatio)
         self.home_img_label.setPixmap(pixmap)
         self.home_committee_label.setText('Committee: ' +self.settings.committee_name)
         self.home_chair_label.setText('Chair: ' + self.settings.chair_name)
         self.home_co_label.setText('Co-Chair: ' + self.settings.co_chair_name)
         if(self.settings.committee_type.lower() == 'crisis'):
             self.home_cd_label.setText('Crisis Director: ' + self.settings.crisis_director_name)
+            self.home_cd_label.show()
         else:
             self.home_cd_label.hide()
         self.settings.toJSON()
 
     # Points and Motions Button Functions
+    def resetMotions(self):
+        for view in self.motion_views:
+            view.hide()
+        self.addMotionView()
     def addMotionView(self):
 
         motion_options = resource_path('motion_options.ui')
