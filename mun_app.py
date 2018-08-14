@@ -102,6 +102,10 @@ class MainWindow(QtWidgets.QWidget):
         self.reset_image_button.clicked.connect(self.resetImage)
         self.image_path_label.setText(self.settings.image)
 
+        self.image_label.hide()
+        self.image_path_label.hide()
+        self.reset_image_button.hide()
+        self.add_image_button.hide()
 
 
         # Delegates Page

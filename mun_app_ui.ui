@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1383</width>
-    <height>846</height>
+    <height>837</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -642,7 +642,7 @@ QCheckBox::indicator:checked:pressed {
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="home_page">
       <property name="sizePolicy">
@@ -691,7 +691,7 @@ QCheckBox::indicator:checked:pressed {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-6</y>
+               <y>0</y>
                <width>1190</width>
                <height>830</height>
               </rect>
@@ -702,6 +702,12 @@ QCheckBox::indicator:checked:pressed {
              <layout class="QGridLayout" name="gridLayout_10">
               <item row="0" column="0" colspan="2">
                <widget class="QLabel" name="welcome_to_conference_label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
@@ -1068,6 +1074,12 @@ QCheckBox::indicator:checked:pressed {
                  </item>
                  <item>
                   <widget class="QLabel" name="home_chair_label">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="font">
                     <font>
                      <family>Arial Black</family>
@@ -1133,7 +1145,6 @@ QCheckBox::indicator:checked:pressed {
                </widget>
               </item>
              </layout>
-             <zorder>welcome_to_conference_label</zorder>
              <zorder>welcome_to_conference_label</zorder>
              <zorder>home_img_label</zorder>
              <zorder>frame_9</zorder>
@@ -1220,7 +1231,7 @@ QCheckBox::indicator:checked:pressed {
             <x>0</x>
             <y>0</y>
             <width>1114</width>
-            <height>668</height>
+            <height>659</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1414,13 +1425,13 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1120</width>
-            <height>715</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <layout class="QVBoxLayout" name="points_motions_layout" stretch="">
+            <layout class="QVBoxLayout" name="points_motions_layout">
              <property name="spacing">
               <number>20</number>
              </property>
@@ -1561,8 +1572,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>376</width>
-            <height>541</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <property name="sizePolicy">
