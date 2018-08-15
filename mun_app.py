@@ -23,6 +23,7 @@ class MainWindow(QtWidgets.QWidget):
         super(MainWindow, self).__init__()
         self.center()
         self.settings = settings
+        print(self.settings.conference_name)
         self.caucus = ModeratedCaucus(0, 30, 'default topic')
         self.defualt_unmod_time_value = 30
         munapp_ui = resource_path('mun_app_ui.ui')
@@ -106,7 +107,7 @@ class MainWindow(QtWidgets.QWidget):
         self.image_path_label.hide()
         self.reset_image_button.hide()
         self.add_image_button.hide()
-
+        self.resetImage()
 
         # Delegates Page
         self.order_delegates_button.clicked.connect(self.onOrderDelegates)
@@ -625,16 +626,18 @@ if __name__ == '__main__':
 
     try:
         file = open(json, 'r')
+
     except IOError:
         file = open(json, 'w')
 
     if(os.stat(json).st_size == 0):
         settings = Settings()
+
     else:
         with open(json, 'r') as file:
             jsonpickle.set_preferred_backend('simplejson')
             settings = jsonpickle.decode(file.read())
-    
+
     window = MainWindow(settings, app)
     
     window.content_pane.setCurrentIndex(0)
