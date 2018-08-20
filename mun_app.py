@@ -23,7 +23,6 @@ class MainWindow(QtWidgets.QWidget):
         super(MainWindow, self).__init__()
         self.center()
         self.settings = settings
-        print(self.settings.conference_name)
         self.caucus = ModeratedCaucus(0, 30, 'default topic')
         self.defualt_unmod_time_value = 30
         munapp_ui = resource_path('mun_app_ui.ui')
@@ -215,7 +214,7 @@ class MainWindow(QtWidgets.QWidget):
             self.figure.autofmt_xdate()
             self.ax.set_yticks(yint)
         self.figure.tight_layout()
-
+        self.settings.toJSON()
         self.canvas.draw()
     # Delegates Page Functions
     def onOrderDelegates(self):
@@ -499,6 +498,8 @@ class MainWindow(QtWidgets.QWidget):
     def addExtension(self):
         duration = self.ext_spin_box.value()
         self.speaker_list_layout.setAlignment(Qt.AlignTop)
+        self.ext_combo_box.currentData().times_called_on += 1
+        self.updateData()
         if((duration * 60 / self.caucus.speaking_time).is_integer() and not duration == 0):
             num_extra_speakers = (duration * 60 / self.caucus.speaking_time)
             for i in range(int(num_extra_speakers) + 1):
@@ -518,15 +519,14 @@ class MainWindow(QtWidgets.QWidget):
                     speaker_view.add_speaker_combo_box.addItem(
                         delegate.title, delegate)
                 num_prev = int(self.caucus.duration * 60 / self.caucus.speaking_time)
-                speaker_view.speaker_number_label.setText(str(i+num_prev+num_prev))
+                speaker_view.speaker_number_label.setText(str(i+num_prev))
                 if(self.ext_first.isChecked() and i == 1):
                     speaker_view.speaker_name_label.setText(
                         self.ext_combo_box.currentData().title)
                 elif(not self.ext_first.isChecked() and i == num_extra_speakers):
                     speaker_view.speaker_name_label.setText(
                         self.ext_combo_box.currentData().title)
-                self.ext_combo_box.currentData().times_called_on += 1
-                self.updateData()
+                
                 self.speaker_list_layout.addWidget(speaker_view)
             self.add_ext_stack.setCurrentIndex(0)
             
