@@ -17,7 +17,6 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from matplotlib.figure import Figure
 import numpy as np
 
-# <------- this is a hashtag
 
 class MainWindow(QtWidgets.QWidget):
 
