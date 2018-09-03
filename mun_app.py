@@ -1,5 +1,6 @@
 import sys
 import os
+import csv
 import jsonpickle
 import simplejson
 import sip
@@ -110,7 +111,12 @@ class MainWindow(QtWidgets.QWidget):
         self.resetImage()
 
         # Delegates Page
+        self.export_attendence.clicked.connect(self.exportAttendence)
         self.order_delegates_button.clicked.connect(self.onOrderDelegates)
+        self.remove_all_del_button.clicked.connect(lambda: self.rm_all_widget.setCurrentIndex(1))
+        self.cancel_rm_button.clicked.connect(lambda: self.rm_all_widget.setCurrentIndex(0))
+        self.confirm_rm_button.clicked.connect(self.removeAllDelegates)
+
         self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
                                           ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
         for i in range(len(self.settings.delegates)):
@@ -191,6 +197,10 @@ class MainWindow(QtWidgets.QWidget):
         self.stats_layout.addWidget(self.canvas)
         self.updateData()
 
+        self.reset_data_button.clicked.connect(lambda: self.reset_data_widget.setCurrentIndex(1))
+        self.cancel_rm_button2.clicked.connect(lambda: self.reset_data_widget.setCurrentIndex(0))
+        self.confirm_rm_button2.clicked.connect(self.reset_data)
+
    #------------------------------------Functionality------------------------------------#
     def center(self):
         frameGm = self.frameGeometry()
@@ -199,6 +209,12 @@ class MainWindow(QtWidgets.QWidget):
         frameGm.moveCenter(centerPoint)
         self.move(frameGm.topLeft())
 
+    def reset_data(self):
+        for delegate in self.settings.delegates:
+            delegate.times_called_on = 0
+        self.settings.toJSON()
+        self.updateData()
+        self.reset_data_widget.setCurrentIndex(0)
 
     def updateData(self):
         sort = sorted(settings.delegates, key=lambda x: x.title.lower())
@@ -218,6 +234,29 @@ class MainWindow(QtWidgets.QWidget):
         self.settings.toJSON()
         self.canvas.draw()
     # Delegates Page Functions
+    def exportAttendence(self):
+        filename, thing = QFileDialog.getSaveFileName()
+        with open(filename+'.csv', mode='w',newline='') as file:
+            writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            for delegate in self.settings.delegates:
+                if(delegate.isPresent):
+                    attendence_status = "Present"
+                else:
+                    attendence_status = "Absent"
+                writer.writerow([delegate.title,attendence_status])
+
+
+    def removeAllDelegates(self):
+        self.rm_all_widget.setCurrentIndex(0)
+        for i in reversed(range(self.dels_layout.count())): 
+            self.dels_layout.itemAt(i).widget().setParent(None)
+        self.settings.total_present_delegates = 0
+        self.settings.delegates = []
+
+        self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
+                                                      ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
+        self.settings.toJSON()
+        self.updateData
     def onOrderDelegates(self):
         self.settings.delegates.sort(key = lambda x : x.title.lower())
         self.settings.toJSON()
@@ -233,6 +272,12 @@ class MainWindow(QtWidgets.QWidget):
                 lambda _, b=del_view: self.onAbsentClicked(b))
             del_view.delete_delegate_button.clicked.connect(
                 lambda _, b=del_view: self.deleteDelegate(b))
+            if(delegate.isPresent):
+                del_view.present_button.setChecked(True)
+                del_view.absent_button.setChecked(False)
+            else:
+                del_view.present_button.setChecked(False)
+                del_view.absent_button.setChecked(True)
 
             self.dels_layout.addWidget(del_view)
     
@@ -246,12 +291,13 @@ class MainWindow(QtWidgets.QWidget):
         for delegate in settings.delegates:
             if delegate.title.lower() == delegate_name.lower():
                 if delegate.isPresent:
-                    settings.total_present_delegates -= 1
-                    self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
-                                                      ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
+                    self.settings.total_present_delegates -= 1
+                
                 self.settings.delegates.remove(delegate)
                 self.settings.toJSON()
                 self.updateData()
+                self.delegates_info_label.setText('Total Delegates: ' + str(len(self.settings.delegates)) + ' | Total Present Delegates: ' + str(self.settings.total_present_delegates) +
+                                                      ' | Simple Majority: ' + str(int(self.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(math.ceil(2/3*self.settings.total_present_delegates))))
                 self.removeItemComboBox(delegate.title)
 
     def onAddDelButtonClicked(self):
@@ -400,11 +446,20 @@ class MainWindow(QtWidgets.QWidget):
             self.motion_views[-1].delegates_combo_box.model().sort(0)
         self.motion_views[-1].start_motion_button.clicked.connect(
             lambda _, b=self.motion_views[-1]: self.startCaucusFromMotions(b))
+        self.motion_views[-1].delete_motion_button.clicked.connect(
+            lambda _, b=self.motion_views[-1]: self.removeMotionView(b)
+        )
+
+    def removeMotionView(self,b):
+        b.hide()
 
     def startCaucusFromMotions(self, b):
+        motioned_by = b.delegates_combo_box.currentData()
+        if(motioned_by== None):
+            motioned_by = Delegate('You need to add delegates first')
         if(b.mod_check_box.isChecked()):
             self.caucus = ModeratedCaucus(b.doubleSpinBox.value(), b.spinBox.value(
-            ), b.topic_line_edit.text().strip(), b.delegates_combo_box.currentData(), b.first_check_box.isChecked())
+            ), b.topic_line_edit.text().strip(), motioned_by, b.first_check_box.isChecked())
             for i in reversed(range(self.speaker_list_layout.count())):
                 self.speaker_list_layout.itemAt(i).widget().setParent(None)
             self.setUpMod(self.caucus.duration,
@@ -435,8 +490,11 @@ class MainWindow(QtWidgets.QWidget):
         self.content_pane.setCurrentIndex(5)
 
     def addModeratedCaucus(self):
+        motioned_by = self.motioned_by_combo_box.currentData()
+        if(motioned_by== None):
+            motioned_by = Delegate('You need to add delegates first')
         self.caucus = ModeratedCaucus(self.duration_spin_box.value(
-        ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text().strip(), self.motioned_by_combo_box.currentData(), self.first_speech_button.isChecked())
+        ), self.speaking_time_spin_box.value(), self.add_mod_topic_field.text().strip(), motioned_by, self.first_speech_button.isChecked())
         for i in reversed(range(self.speaker_list_layout.count())):
             self.speaker_list_layout.itemAt(i).widget().setParent(None)
         self.setUpMod(self.caucus.duration,
@@ -483,7 +541,7 @@ class MainWindow(QtWidgets.QWidget):
         elif(self.countdown_value_mod >= 10):
             self.countdown_timer.setDigitCount(4)
         else:
-            self.countdown_value_mod.setDigitCount(4)
+            self.countdown_timer.setDigitCount(4)
         self.countdown_timer.display(getTime(self.countdown_value_mod))
 
     def onAddSpeakerClicked(self, b):
@@ -543,7 +601,7 @@ class MainWindow(QtWidgets.QWidget):
     def startTimer(self, mode):
         self.timer_state = True
         if(mode == 'mod'):
-            for tick in range(self.countdown_value_mod, -1, -1):
+            for tick in range(self.countdown_value_mod, 0, -1):
                 self.countdown_timer.setDigitCount(
                     len(getTime(self.countdown_value_mod - 1)))
                 if(self.timer_state):
@@ -556,7 +614,7 @@ class MainWindow(QtWidgets.QWidget):
                         app.processEvents()
                         time.sleep(0.02)
         else:
-            for tick in range(self.countdown_value_unmod, -1, -1):
+            for tick in range(self.countdown_value_unmod, 0, -1):
                 self.unmod_timer.setDigitCount(
                     len(getTime(self.countdown_value_unmod)))
                 if(self.timer_state):

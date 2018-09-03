@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1383</width>
+    <width>1478</width>
     <height>841</height>
    </rect>
   </property>
@@ -61,7 +61,7 @@ QLabel#app_title{
 }
 
 
-#home_contents{
+#home_contents, #remove_del_but_page, #page10,#page11{
 background-color: #4B9CD3
 }
 
@@ -70,7 +70,7 @@ QPushButton#home_button:hover,#delegates_button:hover,#points_motions_button:hov
 
 }
 
-#settings_page, #points_motions_page, #moderated_caucus_page,#home_page{
+#settings_page, #points_motions_page, #moderated_caucus_page,#home_page,#reset_data_but_page{
 	background-color: #4B9CD3;
 
 }
@@ -141,7 +141,7 @@ background-color: #13294b;
 		background-color: #4B9CD3;
 }
 
-#add_delegate_button, #add_motion_button, #add_mod_caucus_button, #add_unmod_button,#order_delegates_button,#reset_motions_button{
+#add_delegate_button, #add_motion_button, #add_mod_caucus_button, #add_unmod_button,#order_delegates_button,#reset_motions_button,#remove_all_del_button{
 	background-color: #767676;
 	border-color: transparent;
 	color:white;
@@ -205,7 +205,7 @@ background-color: #767676;
 }
 
 
-#add_topic_label, #add_duration_label, #add_speaking_time_label, #motioned_by_label, #first_or_last_label, #set_unmod_minutes_label,#set_unmod_seconds_label,#ext_duration_label,#ext_motioned_label{
+#add_topic_label, #add_duration_label, #add_speaking_time_label, #motioned_by_label, #first_or_last_label, #set_unmod_minutes_label,#set_unmod_seconds_label,#ext_duration_label,#ext_motioned_label,#confirm_rm_label{
 	color:white;
 	font: 87 14pt &quot;Arial Black&quot;;
 }
@@ -217,7 +217,7 @@ background-color: #767676;
 	font: 87 16pt &quot;Arial Black&quot;;
 }
 
-#first_speech_button, #last_speech_button{
+#first_speech_button, #last_speech_button,#confirm_page,#reset_data_button{
 	background-color: #767676;
 	border:none;
 	color:white;
@@ -277,7 +277,24 @@ QCheckBox::indicator:checked:pressed {
 }QCheckBox::indicator:checked {
        image: url(:/img/resources/checkmark-xxl.png);
 }
-</string>
+#cancel_rm_button,#cancel_rm_button2 {
+	background-color:red;
+	color:white;
+	font: 87 12pt &quot;Arial Black&quot;;
+}
+#confirm_rm_button, #confirm_rm_button2 {
+	background-color:lime;
+	color:white;
+	font: 87 12pt &quot;Arial Black&quot;;
+}
+
+#you_sure_page{
+	background-color: #767676
+}
+#you_sure_label{
+	color:white;
+	font: 87 12pt &quot;Arial Black&quot;;
+}</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,8">
    <property name="spacing">
@@ -642,7 +659,7 @@ QCheckBox::indicator:checked:pressed {
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="home_page">
       <property name="sizePolicy">
@@ -1159,33 +1176,7 @@ QCheckBox::indicator:checked:pressed {
      </widget>
      <widget class="QWidget" name="delegates_page">
       <layout class="QGridLayout" name="gridLayout_7">
-       <item row="2" column="0">
-        <widget class="QFrame" name="frame_8">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="7,3">
-          <item>
-           <widget class="QPushButton" name="add_delegate_button">
-            <property name="text">
-             <string>Add Delegate</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="order_delegates_button">
-            <property name="text">
-             <string>Order Delegates Alphabetically </string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
+       <item row="2" column="0" colspan="2">
         <widget class="QLabel" name="delegates_info_label">
          <property name="text">
           <string/>
@@ -1195,7 +1186,7 @@ QCheckBox::indicator:checked:pressed {
          </property>
         </widget>
        </item>
-       <item row="0" column="0" colspan="2">
+       <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="delegates_title_label">
          <property name="text">
           <string>Delegates</string>
@@ -1205,7 +1196,7 @@ QCheckBox::indicator:checked:pressed {
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QScrollArea" name="delegates_scroll_area">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1230,8 +1221,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1095</width>
+            <height>549</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1268,6 +1259,112 @@ QCheckBox::indicator:checked:pressed {
            </item>
           </layout>
          </widget>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QFrame" name="frame_8">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="3,3,3">
+          <item>
+           <widget class="QPushButton" name="add_delegate_button">
+            <property name="text">
+             <string>Add Delegate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="order_delegates_button">
+            <property name="text">
+             <string>Order Delegates Alphabetically </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QStackedWidget" name="rm_all_widget">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="remove_del_but_page">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="remove_all_del_button">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Remove All</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="confirm_page">
+             <layout class="QGridLayout" name="gridLayout_12">
+              <item row="1" column="0">
+               <widget class="QPushButton" name="cancel_rm_button">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>No</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="confirm_rm_button">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Yes</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="confirm_rm_label">
+                <property name="text">
+                 <string>Are you sure?</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="export_attendence">
+         <property name="text">
+          <string>Export to CSV file</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -1425,8 +1522,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1102</width>
+            <height>684</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1572,8 +1669,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>440</width>
+            <height>480</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -2233,7 +2330,7 @@ QCheckBox::indicator:checked:pressed {
       </layout>
      </widget>
      <widget class="QWidget" name="stats_page">
-      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,8">
+      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,0,8">
        <item>
         <widget class="QLabel" name="stats_title_label">
          <property name="text">
@@ -2242,6 +2339,70 @@ QCheckBox::indicator:checked:pressed {
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="reset_data_widget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="reset_data_but_page">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="reset_data_button">
+             <property name="text">
+              <string>Reset Data </string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="you_sure_page">
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="1" column="2">
+            <widget class="QPushButton" name="confirm_rm_button2">
+             <property name="text">
+              <string>Yes, Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="cancel_rm_button2">
+             <property name="text">
+              <string>No,Don't Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLabel" name="you_sure_label">
+             <property name="text">
+              <string>Are You Sure?</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
