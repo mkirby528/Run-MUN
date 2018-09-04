@@ -262,7 +262,7 @@ background-color: #767676;
 	color:white;
 	font: 87 24pt &quot;Arial Black&quot;;
 }
-#home_delegates_button, #home_pm_button,#home_mod_button,#home_unmod_button,#home_stats_button,#home_settings_button {
+#home_delegates_button, #home_pm_button,#home_mod_button,#home_unmod_button,#home_stats_button,#home_settings_button, #export_attendence {
 	background-color:#767676;
 	color:white;
 }
@@ -371,7 +371,7 @@ QCheckBox::indicator:checked:pressed {
          </font>
         </property>
         <property name="text">
-         <string>MUN APP</string>
+         <string>Run-MUN</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1221,7 +1221,7 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1095</width>
+            <width>1153</width>
             <height>549</height>
            </rect>
           </property>
@@ -1360,8 +1360,13 @@ QCheckBox::indicator:checked:pressed {
          </layout>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="5" column="0">
         <widget class="QPushButton" name="export_attendence">
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+          </font>
+         </property>
          <property name="text">
           <string>Export to CSV file</string>
          </property>

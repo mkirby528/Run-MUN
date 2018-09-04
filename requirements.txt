@@ -1,0 +1,5 @@
+matplotlib==2.2.2
+jsonpickle==0.9.6
+simplejson==3.16.0
+numpy==1.15.0
+sip==4.19.8
