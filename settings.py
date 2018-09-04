@@ -1,8 +1,7 @@
 import jsonpickle, simplejson
 from enum import Enum
-import os
+import os,sys
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
-from mun_app import resource_path
 
 class Settings(object):
 
@@ -17,7 +16,6 @@ class Settings(object):
             self.total_present_delegates = 0
             self.delegates=[]
             self.crisis_director_name  ='Defualt CD Name'
-            self.image = 'Default Image Path' 
             self.toJSON()
       
 
@@ -40,3 +38,7 @@ class Delegate(object):
 
 
     
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath('.'), relative_path)
