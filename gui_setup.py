@@ -150,6 +150,7 @@ def setUpModPages(mun_app):
     mun_app.add_ext_button.clicked.connect(lambda: addExtClicked(mun_app))
     mun_app.cancel_add_ext.clicked.connect(lambda: mun_app.add_ext_stack.setCurrentIndex(0))
     mun_app.confirm_add_ext.clicked.connect(lambda: addExtension(mun_app))
+    resetTimer(mun_app,'mod')
 
 def setUpUnmodPage(mun_app):
     mun_app.unmod_timer.setDigitCount(len(getTime(mun_app.countdown_value_mod)))

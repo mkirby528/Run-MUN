@@ -1,19 +1,12 @@
-import sys
 import os
-from gui_setup import *
-from gui_functionality import *
-import csv
-import jsonpickle
-import simplejson
-from PyQt5 import QtCore, QtGui, uic, QtWidgets
-from settings import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from math import ceil, floor
-import time
-from moderated_caucus import ModeratedCaucus
-import resources
+import sys
 
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
+
+import resources
+from gui_functionality import *
+from gui_setup import *
+from settings import *
 
 
 class MainWindow(QtWidgets.QWidget):

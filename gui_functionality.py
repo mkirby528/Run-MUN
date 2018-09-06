@@ -2,6 +2,8 @@ from math import floor, ceil
 import sys,os
 from PyQt5 import uic
 from PyQt5 import QtCore,QtGui,QtWidgets
+import csv
+from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from settings import Delegate
@@ -92,12 +94,10 @@ def onOrderDelegates(mun_app):
             lambda _, b=del_view: onAbsentClicked(mun_app,b))
         del_view.delete_delegate_button.clicked.connect(
             lambda _, b=del_view: deleteDelegate(mun_app,b))
-        if(delegate.isPresent):
-            del_view.present_button.setChecked(True)
-            del_view.absent_button.setChecked(False)
-        else:
-            del_view.present_button.setChecked(False)
-            del_view.absent_button.setChecked(True)
+        
+        del_view.present_button.setChecked(delegate.isPresent)
+        del_view.absent_button.setChecked(not delegate.isPresent)
+        
 
         mun_app.dels_layout.addWidget(del_view)
 
@@ -105,8 +105,7 @@ def onOrderDelegates(mun_app):
 def deleteDelegate(mun_app, widget):
     delegate_name = widget.delegate_name_label.text().strip()
     mun_app.dels_layout.removeWidget(widget)
-    widget.hide()
-    widget = None
+    widget.setParent(None)
     for delegate in mun_app.settings.delegates:
         if delegate.title.lower() == delegate_name.lower():
             if delegate.isPresent:
@@ -115,8 +114,7 @@ def deleteDelegate(mun_app, widget):
             mun_app.settings.delegates.remove(delegate)
             mun_app.settings.toJSON()
             updateData(mun_app)
-            mun_app.delegates_info_label.setText('Total Delegates: ' + str(len(mun_app.settings.delegates)) + ' | Total Present Delegates: ' + str(mun_app.settings.total_present_delegates) +
-                                              ' | Simple Majority: ' + str(int(mun_app.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(ceil(2/3*mun_app.settings.total_present_delegates))))
+            update_del_info_label(mun_app)
             removeItemComboBox(mun_app,delegate.title)
 
 def onAddDelButtonClicked(mun_app):
@@ -129,11 +127,10 @@ def onPresentClicked(mun_app, widget):
     delegate_name = widget.delegate_name_label.text().strip()
     for delegate in mun_app.settings.delegates:
         if delegate.title.lower() == delegate_name.lower():
-            if not(delegate.isPresent):
+            if not delegate.isPresent:
                 mun_app.settings.total_present_delegates += 1
-                mun_app.delegates_info_label.setText('Total Delegates: ' + str(len(mun_app.settings.delegates)) + ' | Total Present Delegates: ' + str(mun_app.settings.total_present_delegates) +
-                                                    ' | Simple Majority: ' + str(int(mun_app.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(ceil(2/3*mun_app.settings.total_present_delegates))))
-            delegate.isPresent = True
+                update_del_info_label(mun_app)
+            delegate.isPresent =True
             mun_app.settings.toJSON()
 
 def onAbsentClicked(mun_app, widget):
@@ -142,8 +139,7 @@ def onAbsentClicked(mun_app, widget):
         if delegate.title.lower() == delegate_name.lower():
             if delegate.isPresent:
                 mun_app.settings.total_present_delegates -= 1
-                mun_app.delegates_info_label.setText('Total Delegates: ' + str(len(mun_app.settings.delegates)) + ' | Total Present Delegates: ' + str(mun_app.settings.total_present_delegates) +
-                                                    ' | Simple Majority: ' + str(int(mun_app.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(ceil(2/3*mun_app.settings.total_present_delegates))))
+                update_del_info_label(mun_app)
             delegate.isPresent = False
             mun_app.settings.toJSON()
 
@@ -155,7 +151,6 @@ def onConfirmAddDelegatePressed(mun_app):
     mun_app.settings.delegates.append(
         Delegate(mun_app.add_delegate_name_field.text().strip()))
     mun_app.settings.toJSON()
-    updateData(mun_app)
     mun_app.dels_layout.setAlignment(Qt.AlignTop)
 
     delegate_ui = resource_path('delegate_view.ui')
@@ -164,6 +159,7 @@ def onConfirmAddDelegatePressed(mun_app):
 
     delegate = mun_app.settings.delegates[-1]
     del_view.delegate_name_label.setText(delegate.title)
+   
     del_view.present_button.clicked.connect(
         lambda _, b=del_view: onPresentClicked(mun_app,b))
     del_view.absent_button.clicked.connect(
@@ -172,14 +168,12 @@ def onConfirmAddDelegatePressed(mun_app):
         lambda _, b=del_view: deleteDelegate(mun_app,b))
 
     mun_app.dels_layout.addWidget(del_view)
-    mun_app.content_pane.setCurrentIndex(1)
+    mun_app.content_pane.setCurrentIndex(mun_app.DELEGATES_INDEX)
     addItemComboBox(mun_app,delegate)
     mun_app.settings.total_present_delegates += 1
-    mun_app.delegates_info_label.setText('Total Delegates: ' + str(len(mun_app.settings.delegates)) + ' | Total Present Delegates: ' + str(mun_app.settings.total_present_delegates) +
-                                        ' | Simple Majority: ' + str(int(mun_app.settings.total_present_delegates / 2 + 1)) + '  | 2/3 Majority: ' + str(int(ceil(2/3*mun_app.settings.total_present_delegates))))
+    update_del_info_label(mun_app)
     mun_app.settings.toJSON()
     updateData(mun_app)
-# Settings Page Button Functions
 
 def onCrisisClicked(mun_app):
     mun_app.settings.committee_type = 'Crisis'
@@ -236,22 +230,21 @@ def onSaveClicked(mun_app):
 # Points and Motions Button Functions
 def resetMotions(mun_app):
     for view in mun_app.motion_views:
-        view.hide()
+        view.setParent(None)
     addMotionView(mun_app)
 
 def addMotionView(mun_app):
-
     motion_options = resource_path('motion_options.ui')
     mun_app.motion_views.append(uic.loadUi(motion_options))
+
     mun_app.motion_views[-1].delegates_combo_box.setEditable(True)
     mun_app.motion_views[-1].delegates_combo_box.lineEdit().setReadOnly(True)
     mun_app.motion_views[-1].delegates_combo_box.lineEdit(
     ).setAlignment(QtCore.Qt.AlignCenter)
+    
     mun_app.points_motions_layout.addWidget(mun_app.motion_views[-1])
-    for delegate in mun_app.settings.delegates:
-        mun_app.motion_views[-1].delegates_combo_box.addItem(
-            delegate.title, delegate)
-        mun_app.motion_views[-1].delegates_combo_box.model().sort(0)
+    
+    
     mun_app.motion_views[-1].start_motion_button.clicked.connect(
         lambda _, b=mun_app.motion_views[-1]: startCaucusFromMotions(mun_app,b))
     mun_app.motion_views[-1].delete_motion_button.clicked.connect(
@@ -288,21 +281,21 @@ def removeItemComboBox(mun_app, name):
             if(view.delegates_combo_box.itemText(i) == name):
                 view.delegates_combo_box.removeItem(i)
 
-# Add Mod Functions
 def addModPressed(mun_app):
     mun_app.motioned_by_combo_box.clear()
     for delegate in mun_app.settings.delegates:
         mun_app.motioned_by_combo_box.addItem(delegate.title, delegate)
-        # mun_app.motioned_by_combo_box.setItemData(1, 1, Qt.UserRole)
 
-    mun_app.content_pane.setCurrentIndex(5)
+    mun_app.content_pane.setCurrentIndex(mun_app.ADD_MOD_INDEX)
 
 def addModeratedCaucus(mun_app):
     motioned_by = mun_app.motioned_by_combo_box.currentData()
     if(motioned_by == None):
         motioned_by = Delegate('You need to add delegates first')
+
     mun_app.caucus = ModeratedCaucus(mun_app.duration_spin_box.value(
     ), mun_app.speaking_time_spin_box.value(), mun_app.add_mod_topic_field.text().strip(), motioned_by, mun_app.first_speech_button.isChecked())
+
     for i in reversed(range(mun_app.speaker_list_layout.count())):
         mun_app.speaker_list_layout.itemAt(i).widget().setParent(None)
     setUpMod(mun_app,mun_app.caucus.duration,
@@ -318,17 +311,20 @@ def setUpMod(mun_app, duration, speaking_time, topic):
     for i in range(int(num_speakers)):
         speaker_view = resource_path('speaker_view.ui')
         speaker_view = uic.loadUi(speaker_view)
+       
         speaker_view.add_speaker_button.clicked.connect(
-            lambda _, b=speaker_view: mun_app.onAddSpeakerClicked(b))
+            lambda _, b=speaker_view: onAddSpeakerClicked(mun_app,b))
         speaker_view.cancel_speaker_button.clicked.connect(
-            lambda _, b=speaker_view: mun_app.onCancelSpeakerClicked(b))
+            lambda _, b=speaker_view: onCancelSpeakerClicked(mun_app,b))
         speaker_view.confirm_speaker_button.clicked.connect(
-            lambda _, b=speaker_view: mun_app.onConfirmSpeakerClicked(b))
+            lambda _, b=speaker_view: onConfirmSpeakerClicked(mun_app,b))
 
         for delegate in mun_app.settings.delegates:
             speaker_view.add_speaker_combo_box.addItem(
                 delegate.title, delegate)
+
         speaker_view.speaker_number_label.setText(str(i+1))
+        
         if(mun_app.caucus.is_first_speaker and i == 0):
             speaker_view.speaker_name_label.setText(
                 mun_app.caucus.motioned_by.title)
@@ -377,11 +373,11 @@ def addExtension(mun_app):
                 speaker_view.setCurrentIndex(2)
 
             speaker_view.add_speaker_button.clicked.connect(
-                lambda _, b=speaker_view: mun_app.onAddSpeakerClicked(b))
+                lambda _, b=speaker_view: onAddSpeakerClicked(mun_app,b))
             speaker_view.cancel_speaker_button.clicked.connect(
-                lambda _, b=speaker_view: mun_app.onCancelSpeakerClicked(b))
+                lambda _, b=speaker_view: onCancelSpeakerClicked(mun_app,b))
             speaker_view.confirm_speaker_button.clicked.connect(
-                lambda _, b=speaker_view: mun_app.onConfirmSpeakerClicked(b))
+                lambda _, b=speaker_view: onConfirmSpeakerClicked(mun_app,b))
 
             for delegate in mun_app.settings.delegates:
                 speaker_view.add_speaker_combo_box.addItem(
