@@ -250,6 +250,10 @@ def addMotionView(mun_app):
     mun_app.motion_views[-1].delete_motion_button.clicked.connect(
         lambda _, b=mun_app.motion_views[-1]: removeMotionView(mun_app,b)
     )
+    
+    for delegate in mun_app.settings.delegates:
+        addItemComboBox(mun_app,delegate)
+    
 
 def removeMotionView(mun_app, b):
     b.hide()
@@ -396,9 +400,12 @@ def addExtension(mun_app):
         mun_app.add_ext_stack.setCurrentIndex(0)
 
 def onConfirmSpeakerClicked(mun_app, b):
+    mun_app.speaker_list_layout.setAlignment(Qt.AlignTop)
     delegate = b.add_speaker_combo_box.currentData()
     b.speaker_name_label.setText(delegate.title)
+    print(delegate.title)
     delegate.times_called_on += 1
+    
     updateData(mun_app)
     mun_app.settings.toJSON()
     updateData(mun_app)
