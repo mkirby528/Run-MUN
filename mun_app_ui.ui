@@ -1249,8 +1249,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>71</width>
+            <height>16</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -1555,8 +1555,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>78</width>
+            <height>24</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1702,8 +1702,8 @@ QCheckBox::indicator:checked:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>33</width>
+            <height>16</height>
            </rect>
           </property>
           <property name="sizePolicy">
