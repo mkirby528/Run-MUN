@@ -479,9 +479,9 @@ QCheckBox::indicator:checked:pressed {
        <number>0</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="last_check_box">
+       <widget class="QCheckBox" name="first_check_box">
         <property name="text">
-         <string>Last Speech</string>
+         <string>First Speech</string>
         </property>
         <property name="autoExclusive">
          <bool>true</bool>
@@ -489,9 +489,9 @@ QCheckBox::indicator:checked:pressed {
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="first_check_box">
+       <widget class="QCheckBox" name="last_check_box">
         <property name="text">
-         <string>First Speech</string>
+         <string>Last Speech</string>
         </property>
         <property name="autoExclusive">
          <bool>true</bool>
